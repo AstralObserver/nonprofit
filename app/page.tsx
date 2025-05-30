@@ -8,7 +8,7 @@ export default function Home() {
       {/* Navbar */}
       <nav className="flex items-center justify-between px-6 py-4 bg-gray-800 shadow-md">
         <div className="flex items-center space-x-3">
-          <Image src="/icon.png" alt="Blue and orange phoenix rising from a white rose." width={48} height={48} />
+          <Image src="/icon.png" alt="Blue and orange phoenix rising from a white rose." width={64} height={64} />
           <Link href="/" className="text-2xl font-bold hover:underline">Collective Improvment Association</Link>
         </div>
 
@@ -23,7 +23,7 @@ export default function Home() {
       </section>
 
       <section className="flex flex-col lg:flex-row justify-center items-start gap-8 px-4">
-        <Image src="/Calendar.png" alt="June events calendar for Maricopa county." width={48} height={48} />
+        <Image src="/Calendar.png" alt="June events calendar for Maricopa county." width={600} height={800} />
         {/* Calendar Block
         <div className="bg-white text-black rounded-lg shadow-lg p-10 w-full max-w-3xl text-center text-lg">
           <h2 className="text-3xl font-semibold mb-4">Events</h2>
