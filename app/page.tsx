@@ -23,11 +23,13 @@ export default function Home() {
       </section>
 
       <section className="flex flex-col lg:flex-row justify-center items-start gap-8 px-4">
-        {/* Calendar Block */}
+        <Image src="/Calendar.png" alt="June events calendar for Maricopa county." width={48} height={48} />
+        {/* Calendar Block
         <div className="bg-white text-black rounded-lg shadow-lg p-10 w-full max-w-3xl text-center text-lg">
           <h2 className="text-3xl font-semibold mb-4">Events</h2>
           <Calendar className="w-full text-xl [&>*]:space-y-4" />
         </div>
+        */}
         </section>
       </main>
   );
