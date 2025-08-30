@@ -1,0 +1,13 @@
+<!-- TODO: Possible dead code – This template is not used by any content files. All content sections use list layouts (_index.md). [High confidence] -->
+{{ define "title" }}{{ .Title }} &ndash; {{ .Site.Title }}{{ end }}
+
+{{ define "main" }}
+<div class="row">
+    <div class="col-md-12">
+        <h1>{{ .Title }}</h1>
+        <div class="content">
+            {{ .Content }}
+        </div>
+    </div>
+</div>
+{{ end }}

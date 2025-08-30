@@ -1,0 +1,10 @@
+baseURL = "http://localhost:1313/"
+languageCode = "en-us"
+title = "TAKE ACTION TUCSON"
+theme = "mcp-theme"
+
+[params]
+  description = "Your central hub for Tucson activism to save our democracy"
+  darkGreen = "#4d614d"
+  lightGreen = "#7a917a"
+  beige = "#f9f5e3"
