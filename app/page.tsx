@@ -24,9 +24,16 @@ export default function Home() {
 
       <section className="flex flex-col lg:flex-row justify-center items-start gap-8 px-4">
         {/* Calendar Block */}
-        <div className="bg-white text-black rounded-lg shadow-lg p-10 w-full max-w-3xl text-center text-lg">
+        <div className="bg-white text-black rounded-lg shadow-lg p-10 w-full max-w-4xl text-center text-lg">
           <h2 className="text-3xl font-semibold mb-4">Events</h2>
-          <Calendar className="w-full text-xl [&>*]:space-y-4" />
+          <Calendar className="w-full text-xl [&>*]:space-y-10" />
+        </div>
+        </section>
+
+      <section className="flex flex-col lg:flex-row justify-center items-start gap-10 px-4 p-10">
+        {/* Upcoming Block */}
+        <div className="bg-white text-black rounded-lg shadow-lg p-10 w-full max-w-4xl text-left text-lg">
+          <h2 className="text-3xl font-semibold mb-4">Upcoming</h2>
         </div>
         </section>
       </main>
