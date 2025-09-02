@@ -1,12 +1,12 @@
-# Project Description: TATwebsite
+# Project Description: CIA Website
 
-This document provides a concise overview of the TATwebsite project to quickly bring a new AI assistant up to speed.
+This document provides a concise overview of the CIA project to quickly bring a new AI assistant up to speed. This code was used in collaboration with Take Action Tuscon.
 
 ## Project Overview
 
 *   **Project Type:** Static Website
 *   **Technology:** [Hugo](https://gohugo.io/)
-*   **Purpose:** This is the official website for "Take Action Tucson," a pro-democracy activism hub. The site serves to inform visitors about events, provide contact information, and showcase the group's activities.
+*   **Purpose:** This is the official website for the "Collective Improvement Association" a pro-democracy activism hub. The site serves to inform visitors about events, provide contact information, and showcase the group's activities.
 
 ## Technology Stack
 
