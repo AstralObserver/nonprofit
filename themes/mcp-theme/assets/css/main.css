@@ -1,0 +1,1306 @@
+:root {
+    --dark-green: #4d614d;
+    --light-green: #7a917a;
+    --beige: #F5ECD4;
+    --accent-green: #6a8a6a;
+    --text-dark: #333333;
+    --bs-btn-focus-shadow-rgb: 77, 97, 77;
+    --primary-color: #4d614d;
+    --secondary-color: #a4b4a4;
+    --background-color: #fffff4;
+    --text-color: #333;
+    --beige-bg: #F5ECD4;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--dark-green);
+    background-color: var(--beige);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--dark-green);
+    font-family: 'Calistoga', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+}
+
+a {
+    color: var(--dark-green);
+    text-decoration: underline;
+}
+
+a:hover {
+    color: var(--accent-green);
+}
+
+.navbar-dark {
+    background-color: var(--dark-green) !important;
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    font-family: 'Calistoga', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+}
+
+.navbar-brand {
+    font-size: clamp(1.6rem, 5vw, 2.5rem);
+    color: var(--beige) !important;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.navbar-brand:hover {
+    color: var(--beige) !important;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--dark-green);
+    border-color: var(--dark-green);
+    color: var(--beige);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--dark-green);
+    border-color: var(--dark-green);
+    color: var(--beige);
+}
+
+.btn-primary:active, .btn-primary.active {
+    background-color: var(--dark-green) !important;
+    border-color: var(--dark-green) !important;
+    color: var(--beige);
+}
+
+.btn-primary:active:focus {
+    background-color: var(--dark-green);
+    border-color: var(--dark-green);
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
+}
+
+.btn-outline-primary {
+    color: var(--dark-green);
+    border-color: var(--dark-green);
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:focus {
+    color: var(--beige);
+    background-color: var(--light-green);
+    border-color: var(--light-green);
+}
+
+.btn-outline-primary:active, .btn-outline-primary.active {
+    color: var(--beige);
+    background-color: var(--dark-green) !important;
+    border-color: var(--dark-green) !important;
+}
+
+.btn-primary:focus,
+.btn-outline-primary:focus {
+    box-shadow: none !important;
+}
+
+.calendar-container {
+    min-height: 600px;
+    margin-bottom: 30px;
+}
+
+.contact-form {
+    background-color: var(--beige);
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid var(--dark-green);
+}
+
+/* Print Calendar Styles */
+.print-calendar {
+    background-color: var(--beige);
+    border: 2px solid var(--dark-green);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.print-calendar h1 {
+    text-align: center;
+    color: var(--dark-green);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.print-calendar h2 {
+    text-align: center;
+    color: var(--light-green);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.print-calendar .page-number {
+    text-align: center;
+    color: var(--dark-green);
+    margin-bottom: 1rem;
+}
+
+.print-calendar table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.print-calendar th {
+    background-color: var(--light-green);
+    color: var(--beige);
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.print-calendar td {
+    padding: 10px;
+    border-bottom: 1px solid var(--light-green);
+}
+
+.print-calendar tr:nth-child(even) {
+    background-color: rgba(122, 145, 122, 0.1);
+}
+
+/* Protest Gallery Styles */
+.protest-gallery {
+    margin: 30px 0;
+}
+
+.protest-gallery .card {
+    margin-bottom: 20px;
+    border-color: var(--light-green);
+}
+
+.protest-gallery img {
+    max-width: 100%;
+    height: auto;
+}
+
+.protest-gallery .card-title {
+    color: var(--dark-green);
+}
+
+/* Landing Page Hero */
+.hero-container {
+    position: relative;
+    margin-bottom: 30px;
+    background-color: var(--beige);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: 800px;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer {
+    background-color: var(--dark-green);
+    color: var(--beige);
+    padding: 1.1rem 0;
+    margin-top: 30px;
+    font-family: 'Calistoga', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+}
+
+.footer h3,
+.footer h4,
+.footer a {
+    font-family: 'Calistoga', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--beige);
+    font-weight: 400;
+}
+
+.footer a:hover {
+    color: var(--light-green);
+}
+
+@media print {
+    body {
+        background-color: white;
+        color: black;
+    }
+    
+    .navbar, .footer, .btn, .no-print {
+        display: none;
+    }
+    
+    .print-calendar {
+        border: none;
+        padding: 0;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+/* Desktop List View Styles */
+.desktop-calendar-view {
+    background-color: transparent;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.event-list-item {
+    display: flex;
+    min-height: 12rem;
+    max-height: 12rem;
+    border-bottom: 1px solid #e9ecef;
+    align-items: stretch;
+    transition: background-color 0.1s, max-height 0.1s ease-out;
+    background-color: white;
+    overflow: hidden;
+}
+
+.event-list-item.is-expanded {
+    max-height: 50rem; /* A large enough value to show any content */
+}
+
+.event-list-item:hover {
+    background-color: rgba(122, 145, 122, 0.05);
+}
+
+.event-list-item:last-child {
+    border-bottom: none;
+}
+
+.event-date-column {
+    flex: 0 0 200px;
+    text-align: center;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--light-green);
+    color: white;
+    position: relative;
+}
+
+.event-date-column::after {
+    content: none;
+}
+
+.event-date-large {
+    margin-bottom: 8px;
+    font-size: 2.4rem;
+    font-weight: bold;
+    line-height: 1;
+    font-family: 'Calistoga', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.event-time {
+    font-size: 1.2rem;
+    font-weight: 700;
+    opacity: 0.95;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 8px;
+    margin-top: 8px;
+    line-height: 1.4;
+}
+
+.event-info {
+    flex: 1;
+    padding: 14px;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.event-info .event-title {
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    margin-bottom: 0.6rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: none;
+}
+
+.event-location {
+    color: var(--light-green);
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+}
+
+.event-location i {
+    margin-right: 5px;
+}
+
+.event-info .event-description {
+    font-size: 1.1rem;
+    margin-bottom: 0; /* Remove extra space so description reaches the bottom */
+    line-height: 1.5;
+}
+
+/* This is the container we will measure for overflow. */
+.event-content-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* This wrapper becomes much simpler. It no longer needs to grow or hide overflow. */
+.event-description-wrapper {
+    flex-grow: 1;
+}
+
+/* 1. The Gradient (Always on for overflowing items) */
+.event-list-item.has-overflow .event-info::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4rem;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white 90%);
+    pointer-events: none;
+    z-index: 1; /* Sits below the hover bar */
+    transition: background .2s ease-in-out;
+}
+
+.event-list-item.has-overflow:hover .event-info::after {
+    background: linear-gradient(to bottom, hsla(120, 8%, 97%, 0), #EFE7CF 90%);
+}
+
+.event-list-item.is-expanded .event-info::after {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 2. The "Read More" Bar (Container for the hover effect) */
+.expand-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 12px; /* Reduced height for minimal margins */
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+}
+
+/* Show the indicator on hover */
+.event-list-item.has-overflow:hover .expand-indicator {
+    opacity: 1;
+}
+
+/* The dark, transparent background for the bar */
+.expand-indicator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Use a solid, semi-transparent color as requested */
+    background-color: hsla(120, 10%, 25%, 0.15);
+    border-top: none; /* Ensure no border */
+}
+
+/* The "Read More" text and arrow icon */
+.expand-indicator::after {
+    content: ''; /* Remove the "Read More" text */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: var(--dark-green);
+    font-weight: bold;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='5' viewBox='0 0 10 5'%3E%3Cpath d='M0 0l5 5 5-5z' fill='%234d614d'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center center; /* Center the arrow */
+    transition: transform 0.35s ease-out;
+}
+
+.event-list-item.is-expanded .expand-indicator::after {
+    transform: rotate(180deg);
+}
+
+.event-list-item {
+    position: relative;
+}
+
+.event-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.event-image-right {
+    flex: 0 0 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.event-image-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Header Layout */
+.navbar-header-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-title-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navbar-social-icons {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Cactus Icons */
+.cactus-icon {
+    height: 40px;
+    width: 40px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.cactus-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Social Icons in Navigation */
+.nav-social-icon svg {
+    height: 24px;
+    width: 24px;
+    margin: 0 8px;
+    fill: var(--beige);
+    transition: all .2s ease-in-out;
+}
+
+.nav-social-icon:hover svg {
+    fill: white;
+    transform: scale(1.1);
+}
+
+.nav-social-icon {
+    text-decoration: none;
+}
+
+.nav-social-icon:hover {
+    text-decoration: none;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Tablet view adjustments */
+@media (max-width: 991.98px) {
+    .event-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .navbar-header-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .navbar-brand {
+        text-align: center;
+        margin-bottom: 0.25rem;
+    }
+    
+    .navbar-social-icons {
+        justify-content: center;
+    }
+}
+
+/* Wide phone view adjustments */
+@media (max-width: 768px) {
+    .navbar-header-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .navbar-brand {
+        margin-bottom: 0.25rem;
+        text-align: center;
+        position: static;
+        margin-right: 10px;
+    }
+    
+    .navbar-social-icons {
+        position: static;
+        margin-right: 10px;
+    }
+    
+    .cactus-icon {
+        height: 32px;
+        width: 32px;
+    }
+
+    .calendar-nav .calendar-nav-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #calendar-type-nav {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Narrow phone view adjustments */
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: clamp(1.3rem, 4.5vw, 1.8rem);
+    }
+    
+    .nav-social-icon svg {
+        margin: 0 6px;
+    }
+    
+    .cactus-icon {
+        height: 28px;
+        width: 28px;
+    }
+    
+    .navbar-title-section {
+        gap: 0.75rem;
+    }
+}
+
+/* Very narrow screens */
+@media (max-width: 400px) {
+    .navbar-brand {
+        font-size: clamp(1.1rem, 4vw, 1.5rem);
+    }
+    
+    .navbar-title-section {
+        gap: 0.5rem;
+    }
+}
+
+/* Extremely narrow screens */
+@media (max-width: 320px) {
+    .navbar-brand {
+        font-size: clamp(1.0rem, 3.5vw, 1.2rem);
+    }
+}
+
+/* Custom styles for the footer subscription button */
+.btn-footer-subscribe {
+    background-color: #f9f5e3; /* Cream color to match light text */
+    color: #4d614d; /* Dark green footer background color for text */
+    border-color: #f9f5e3;
+    font-family: 'Calistoga', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1.1rem !important; /* Slightly larger for better readability */
+}
+
+/* Hover, active, and focus states */
+.btn-footer-subscribe:hover,
+.btn-footer-subscribe:focus,
+.btn-footer-subscribe:active,
+.btn-footer-subscribe.show { /* This targets the button when the dropdown is open */
+    background-color: #6c8c6c; /* A lighter, muted green for hover/active */
+    color: #ffffff;
+    border-color: #6c8c6c;
+    box-shadow: none !important; /* Removes Bootstrap's default blue shadow */
+}
+
+/* Style for the dropdown menu items */
+.dropdown-menu[aria-labelledby="subscribeDropdown"] .dropdown-item {
+    color: #4d614d !important; /* Dark green text for menu items */
+}
+
+.dropdown-menu[aria-labelledby="subscribeDropdown"] .dropdown-item:hover {
+    background-color: #e9ecef; /* A light grey for hover, standard for dropdowns */
+}
+
+.btn-footer-subscribe.show { /* This targets the button when the dropdown is open */
+    background-color: var(--beige);
+    color: var(--dark-green);
+    border-color: var(--dark-green);
+}
+
+.calendar-nav .btn-footer-subscribe {
+    background-color: var(--dark-green);
+    color: var(--beige);
+    font-size: 1.1rem !important; /* Match the footer button font size */
+}
+.calendar-nav .btn-footer-subscribe:hover {
+    background-color: var(--accent-green);
+}
+
+.dropdown-menu[aria-labelledby="subscribeDropdown"] .dropdown-item,
+.dropdown-menu[aria-labelledby="subscribeDropdownHeader"] .dropdown-item {
+    font-family: 'Calistoga', 'Inter', sans-serif;
+    color: var(--dark-green);
+}
+
+.dropdown-menu[aria-labelledby="subscribeDropdown"] .dropdown-item:hover,
+.dropdown-menu[aria-labelledby="subscribeDropdownHeader"] .dropdown-item:hover {
+    background-color: var(--light-green);
+    color: var(--beige);
+}
+
+#calendar-type-nav .btn {
+    font-family: 'Calistoga', 'Inter', sans-serif;
+    font-size: 1rem; /* Match default button font-size */
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: var(--beige-bg);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:focus {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: var(--beige-bg);
+}
+
+/* Added from index.html */
+.calendar-nav .btn-group .btn {
+    white-space: nowrap;
+}
+
+/* Responsive adjustments for calendar navigation */
+@media (max-width: 1100px) {
+    .calendar-nav .btn {
+        font-size: .85rem; /* Slightly smaller text on smaller screens */
+        padding: .3rem .4rem;
+    }
+}
+
+@media (max-width: 991.98px) {
+    #calendar-type-nav {
+        flex-wrap: wrap; /* Allow primary buttons to wrap on mobile */
+        justify-content: center;
+    }
+    .calendar-nav-container > .d-flex {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.lightbox {
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+}
+.event-photo {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+.event-photo:hover {
+    transform: scale(1.03);
+}
+.event-card-wrapper {
+    margin-bottom: 0.1rem;
+    display: block; /* Default state */
+}
+.event-card-wrapper.hidden {
+    display: none; /* Hidden state for filtering */
+}
+/* --- Card View Enhancements --- */
+.event-card {
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    background: #fff;
+    border: 1px solid #4d614d;
+}
+.event-card .event-banner {
+    background: #4d614d;
+    color: #f9f5e3;
+    padding: 0.75rem 1rem;
+    font-family: 'Calistoga', cursive;
+    font-weight: 400;
+    margin: -1px -1px 0 -1px;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* center inner items horizontally */
+}
+.event-banner-title {
+    font-size: clamp(1.2rem, 4vw, 2.0rem);
+    line-height: 1.3;
+    white-space: normal;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: none;
+    color: inherit; /* match banner text color */
+}
+.event-banner-dayofweek {
+    font-size: 1.15rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-align: center;
+    line-height: 1.2;
+}
+.event-banner-datetime {
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-align: center;
+}
+@media (max-width: 500px) {
+    .event-card .event-banner {
+    }
+    .event-banner-title {
+        font-size: clamp(1.0rem, 3.5vw, 1.6rem);
+    }
+}
+
+/* Additional responsive sizing for very long titles */
+@media (max-width: 400px) {
+    .event-banner-title {
+        font-size: clamp(0.9rem, 3vw, 1.4rem);
+    }
+}
+
+/* For extremely long titles, enable hyphenation as last resort */
+@media (max-width: 350px) {
+    .event-banner-title {
+        font-size: clamp(0.8rem, 2.5vw, 1.2rem);
+        hyphens: auto;
+    }
+}
+
+.event-card .event-image img {
+    width: 100%;
+    height: auto;         /* maintain intrinsic aspect ratio */
+    object-fit: cover;    /* fill container without distortion */
+}
+.event-card .event-details {
+    background: #fff !important;
+    padding: 1rem 1rem 0.75rem 1rem;
+    /* Border handled by parent .event-card */
+}
+.event-date-column {
+    flex: 0 0 200px;
+    text-align: center;
+    padding: 18px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #4d614d;
+    color: #f9f5e3;
+    position: relative;
+}
+.event-day-of-week {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: normal;
+    margin-bottom: 0;
+    opacity: 0.9;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.event-date-large {
+    font-size: 2.4rem;
+    font-weight: 400;
+    line-height: 1;
+    font-family: 'Calistoga', cursive;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    margin-top: 8px;
+}
+.event-time {
+    font-size: 1.2rem;
+    font-weight: 700;
+    opacity: 0.95;
+    line-height: 1.4;
+    margin-top: 8px;
+}
+.event-card.event-card--alt .event-banner {
+    background: var(--light-green);
+}
+.event-card.event-card--alt {
+    border-color: var(--light-green);
+}
+@media (max-width: 500px) {
+    .event-card .event-banner {
+        font-size: 1.2rem;
+    }
+    .event-card .event-banner-bottom {
+        font-size: 1.2rem;
+    }
+}
+.event-list-item, .event-list-item:last-child {
+    border: 1px solid #4d614d;
+    border-radius: 18px;
+    overflow: hidden; /* This is the key: it clips child elements to the rounded corners */
+    margin-bottom: 0.375rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+    display: flex; /* Default state */
+}
+.event-list-item.hidden {
+    display: none; /* Hidden state for filtering */
+}
+.event-list-item.event-list-item--alt {
+    border-color: var(--light-green);
+}
+.event-list-item.event-list-item--alt .event-date-column {
+    background: var(--light-green);
+}
+.event-list-item.event-list-item--alt .event-image-right {
+    border-left-color: var(--light-green);
+}
+.event-image-right {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 20px;
+    border-left: 1px solid #4d614d;
+}
+.event-image-right img {
+    /* No border-radius needed here; parent clips it */
+}
+.event-info {
+    /* padding: 18px 20px; */
+}
+/* --- Desktop List View Card Style --- */
+.desktop-calendar-view {
+    /* Remove the container look so shadows on individual cards are visible */
+    box-shadow: none;
+    background: transparent;
+    border-radius: 0;
+    overflow: visible;
+}
+/* Override default styles to make each item a self-contained card */
+.event-list-item, .event-list-item:last-child {
+    border: 1px solid #4d614d;
+    border-radius: 18px;
+    overflow: hidden; /* This is the key: it clips child elements to the rounded corners */
+    margin-bottom: 0.375rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+}
+
+/* --- New Button Styles --- */
+.btn-custom-action {
+    background-color: #4d614d; /* Swapped to dark green */
+    border-color: #4d614d;
+    color: #f9f5e3; /* Swapped to beige text */
+    font-family: 'Calistoga', cursive; /* Match theme display font */
+    font-weight: 400; /* Match other buttons */
+    text-transform: none; /* Ensure normal case */
+    letter-spacing: normal; /* Ensure normal spacing */
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.btn-custom-action:hover,
+.btn-custom-action:focus,
+.btn-custom-action:active {
+    background-color: #4d614d; /* Stay dark green */
+    border-color: #4d614d;
+    color: #f9f5e3; /* Stay beige */
+    text-decoration: none; /* Ensure no underline on hover */
+    box-shadow: none !important; /* Remove focus halo */
+    outline: none !important; /* Remove focus halo */
+}
+
+.dropdown-header {
+    font-weight: bold;
+    color: #fffff4; /* Change to theme's white/beige */
+    font-family: 'Calistoga', cursive; /* Match button font */
+    font-size: 1.1rem; /* Make header slightly larger */
+}
+
+.dropdown-item {
+    font-family: 'Calistoga', cursive; /* Use theme display font */
+    color: #f9f5e3; /* Dark green for contrast */
+    text-decoration: none; /* Remove underline */
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    color: #f9f5e3;
+    background-color: #4d614d; /* Dark green on hover */
+    text-decoration: none; /* Ensure no underline on hover */
+}
+
+/* Set dropdown menu background and divider color */
+.btn-action-group .dropdown-menu {
+    background-color: #7a917a; /* light green */
+    border: 1px solid #4d614d; /* Add dark green border */
+}
+
+.btn-action-group .dropdown-divider {
+    border-top: 1px solid rgba(77, 97, 77, 0.25); /* Darker divider for contrast */
+}
+
+.action-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem; /* Space between all items */
+}
+
+.action-buttons-container .btn-group,
+.action-buttons-container .btn {
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+}
+
+.btn-action-group {
+    display: contents; /* Treat children as direct flex items */
+}
+
+/* Desktop Layout */
+@media (min-width: 992px) {
+    .action-buttons-container {
+        justify-content: space-between;
+    }
+
+    #calendar-type-nav { order: 1; }
+    .btn-action-group { order: 2; display: flex; gap: 0.5rem; }
+}
+
+/* Mobile Layout */
+@media (max-width: 991.98px) {
+    .action-buttons-container {
+        flex-direction: column;
+    }
+
+    .btn-action-group {
+        order: 2;
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    #calendar-type-nav {
+        order: 3;
+        width: 100%;
+        justify-content: center; /* Center the filter buttons */
+    }
+    #calendar-type-nav .btn {
+        flex-grow: 1; /* Make filter buttons fill width */
+    }
+}
+
+.map-links {
+    font-size: 0.9em;
+}
+
+/* New Header Styles */
+header.header-new .container-skeleton { max-width: 1140px; margin-right: auto; margin-left: auto; padding-right: 15px; padding-left: 15px; }
+header.header-new {background:#4d614d !important;color:#fff;}
+header.header-new .header-wrapper{display:flex;align-items:center;justify-content:flex-start;gap:0;height:80px;}
+header.header-new .cactus-icon{width:64px;height:64px;display:block; transition: transform 0.2s ease-in-out;}
+header.header-new .title-block{color:#f2ebd8;background-color:transparent;padding:0 1rem 0 2px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;gap:0.15rem;}
+header.header-new .title-block .navbar-brand{margin: -4px 0 0;font-size:2.0rem;font-weight:bold;line-height:1;font-family:'Calistoga','Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;}
+header.header-new .title-block .subtitle{margin:0;font-size:1rem;line-height:1;font-family:'Calistoga','Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;}
+header.header-new .social-block{background-color:transparent;margin-left:auto;display:flex;align-items:center;padding:0 0.5rem;gap:0.5rem;}
+header.header-new .social-icon{color:#f2ebd8 !important; transition: transform 0.2s ease-in-out;}
+header.header-new .social-icon svg{fill:currentColor;width:24px;height:24px;}
+header.header-new .cactus-icon:hover, .header-new .social-icon:hover {
+    transform: scale(1.1);
+}
+header.header-new .header-top-row {
+    display: contents;
+}
+@media (max-width: 767.98px){
+    header.header-new .header-wrapper{
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.5rem 0.5rem;
+        padding: 0.5rem 0;
+        height: auto;
+        align-items: center;
+    }
+    header.header-new .cactus-link { grid-column: 1; grid-row: 1 / span 2; }
+    header.header-new .title-block{height:auto;text-align:left; padding: 0; grid-column: 2; grid-row: 1;}
+    header.header-new .title-block .navbar-brand { font-size: 1.2rem; line-height: 1.1; }
+    header.header-new .title-block .subtitle { font-size: 0.85rem; line-height: 1.1; }
+    header.header-new .social-block{width:auto;height:auto; margin-left: 0; grid-column: 2; grid-row: 2; padding: 0;}
+    header.header-new .social-icon svg { width: 15px; height: 15px; }
+}
+
+/* Improve header text rendering on Safari/WebKit */
+header.header-new .title-block .navbar-brand,
+header.header-new .title-block .subtitle {
+    -webkit-font-smoothing: antialiased;  /* Safari / iOS */
+    -moz-osx-font-smoothing: grayscale;   /* Firefox on macOS */
+}
+
+/* Safari crisp text tweak for header brand */
+header.header-new .title-block .navbar-brand {
+    margin: 0;                 /* avoid sub-pixel baseline */
+    line-height: 1;            /* keep compact spacing */
+    text-rendering: geometricPrecision;  /* WebKit: sharper glyphs */
+    -webkit-font-smoothing: antialiased; /* WebKit: grayscale AA */
+    -moz-osx-font-smoothing: grayscale;  /* Firefox macOS consistency */
+    font-weight: 700;          /* ensure exact weight */
+}
+
+header.header-new .title-block .subtitle {
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Show top-center of event images instead of vertical center */
+.event-image-right img,
+.event-card .event-image img {
+    object-position: center top;
+}
+
+/* --- Event Location Display --- */
+.location-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+.location-and-address {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+  flex-grow: 1;
+}
+.location-label, .map-links-label {
+  font-weight: bold;
+  flex-shrink: 0;
+}
+.map-links-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+  flex-shrink: 0;
+  font-size: 0.9em;
+  margin-right: 1rem;
+  margin-left: auto;
+}
+.map-links-list {
+  display: flex;
+  flex-direction: column;
+}
+.address-line {
+  line-height: 1.2;
+}
+
+/* --- Mobile View Adjustments --- */
+@media (max-width: 767.98px) {
+  .location-block {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* --- Mobile Location Block Styles --- */
+.location-block-mobile {
+  margin-bottom: 0.5rem;
+}
+
+.location-info-mobile {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.location-and-address-mobile {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+  margin-bottom: 0.5rem;
+}
+
+.location-name-and-address-lines-mobile {
+  flex: 1;
+}
+
+.map-links-container-mobile {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+  font-size: 0.9em;
+}
+
+.map-links-mobile {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.map-links-mobile a {
+  text-decoration: underline;
+}
+
+/* --- Mobile Read More Functionality --- */
+.event-content-wrapper-mobile {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  max-height: 200px; /* Set a height constraint to trigger overflow */
+}
+
+.event-description-wrapper-mobile {
+  flex-grow: 1;
+}
+
+/* Mobile gradient effect for overflowing content */
+.event-card.has-overflow .card-body::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rem;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white 90%);
+  pointer-events: none;
+  z-index: 1;
+  transition: background .2s ease-in-out;
+}
+
+.event-card.has-overflow:hover .card-body::after {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #f8f9fa 90%);
+}
+
+.event-card.is-expanded .card-body::after {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Remove height constraint when expanded */
+.event-card.is-expanded .event-content-wrapper-mobile {
+  max-height: none;
+}
+
+/* Mobile expand indicator */
+.expand-indicator-mobile {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+/* Show indicator on hover/touch - make it always visible on mobile for better UX */
+.event-card.has-overflow .expand-indicator-mobile {
+  opacity: 0.7;
+}
+
+.event-card.has-overflow:hover .expand-indicator-mobile,
+.event-card.has-overflow:active .expand-indicator-mobile {
+  opacity: 1;
+}
+
+/* Mobile expand indicator background */
+.expand-indicator-mobile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    hsla(120, 10%, 25%, 0.4) 0px,
+    hsla(120, 10%, 25%, 0.4) 2px,
+    hsla(120, 10%, 25%, 0.25) 2px,
+    hsla(120, 10%, 25%, 0.25) 100%
+  );
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+/* Mobile expand indicator arrow */
+.expand-indicator-mobile::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: var(--dark-green);
+  font-weight: bold;
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='5' viewBox='0 0 10 5'%3E%3Cpath d='M0 0l5 5 5-5z' fill='%234d614d'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center center;
+  transition: transform 0.35s ease-out;
+}
+
+.event-card.is-expanded .expand-indicator-mobile::after {
+  transform: rotate(180deg);
+}
+
+/* Ensure mobile cards have relative positioning for absolute elements */
+.event-card {
+  position: relative;
+}
+
+.event-card .card-body {
+  position: relative;
+}

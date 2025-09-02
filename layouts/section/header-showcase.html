@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ .Title }}</title>
+    
+    <!-- Self-hosted Fonts -->
+    <link rel="stylesheet" href="{{ "/css/fonts.css" | relURL }}">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    {{ $style := resources.Get "css/main.css" | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+    <link rel="shortcut icon" href="/icons/favicon.ico">
+    <link rel="manifest" href="/icons/site.webmanifest">
+
+<style>
+    body {
+        margin: 0;
+    }
+    .showcase-header-title {
+        text-align: center;
+        padding: 1.5rem 1rem 0.75rem;
+        color: #333;
+        margin-bottom: 0;
+    }
+    .showcase-hr {
+        margin-top: 0;
+        margin-bottom: 2rem;
+        border-color: #ddd;
+    }
+
+    /* --- Option 1 Styles --- */
+    .header-option-1-subtitle-bar {
+        background-color: #3a4a3a;
+        color: var(--beige); /* Match title color */
+        text-align: center;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        font-family: 'Calistoga', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-weight: 400; /* Remove bold */
+    }
+    /* Tighten social icon spacing for Option 1 */
+    .header-option-1 .nav-social-icon svg {
+        margin: 0 4px; /* Tighter spacing like Option 2 */
+    }
+    @media (min-width: 768px) {
+        .header-option-1-subtitle-bar {
+            font-size: 1.1rem;
+        }
+    }
+    @media (max-width: 480px) {
+        .header-option-1-subtitle-bar {
+            font-size: 0.95rem;
+        }
+    }
+
+    /* --- Option 2 Styles --- */
+    .header-option-2 .navbar-brand-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center; /* NEW: center title+subtitle vertically */
+        position: static;
+        top: auto;
+        transform: none;
+    }
+    /* NEW: ensure cactus + title group are vertically centered */
+    .header-option-2 .navbar-title-section {
+        display: flex;
+        align-items: center; /* vertically center cactus and text */
+    }
+    .header-option-2 .navbar-brand {
+        font-size: 1.8rem; /* increased title font size */
+        margin-bottom: 0.1rem;
+    }
+    /* NEW: enlarge cactus icon for Option 2 */
+    .header-option-2 .cactus-icon {
+        width: 52px;
+        height: 52px;
+    }
+    .header-option-2 .subtitle {
+        font-size: 0.95rem;
+        color: var(--beige); /* Match title color */
+        margin-top: -5px;
+        font-family: 'Calistoga', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-weight: 400; /* Remove bold */
+        line-height: 1.2;
+    }
+    /* Adjust sizing on smaller screens */
+    @media (max-width: 991.98px) {
+        .header-option-2 .navbar-brand-wrapper {
+            align-items: center;
+        }
+        .header-option-2 .navbar-brand {
+            text-align: center;
+        }
+    }
+    @media (max-width: 767.98px) {
+        .header-option-2 .navbar-title-section {
+            width: calc(100% - 150px);
+        }
+        /* Shrink cactus icon a bit for tablets/phones */
+        .header-option-2 .cactus-icon {
+            width: 44px;
+            height: 44px;
+        }
+        .header-option-2 .subtitle {
+            font-size: 0.9rem;
+        }
+    }
+    @media (max-width: 480px) {
+        .header-option-2 .navbar-brand { font-size: 1.3rem; }
+        .header-option-2 .subtitle { font-size: 0.85rem; }
+        /* Further shrink cactus for very small screens */
+        .header-option-2 .cactus-icon {
+            width: 38px;
+            height: 38px;
+        }
+    }
+
+    /* --- Option 3 Styles --- */
+    .header3-flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem; /* equalized vertical gaps */
+        padding: 0.25rem 0; /* further tightened vertical padding */
+        position: relative;
+    }
+    .header3-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .header3-subtitle {
+        flex: 1 1 0;
+        text-align: center;
+        font-size: 1.05rem;
+        line-height: 1.25; /* tighter line-height */
+        color: var(--beige); /* Match title color */
+        font-family: 'Calistoga', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-weight: 400; /* Remove bold */
+        margin: 0 1rem;
+        position: relative;
+    }
+    /* Add vertical dividers for desktop view */
+    .header3-subtitle::before,
+    .header3-subtitle::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 50%; /* Half the header height */
+        background-color: rgba(255, 255, 255, 0.3); /* Light green-ish */
+    }
+    .header3-subtitle::before {
+        left: -0.5rem;
+    }
+    .header3-subtitle::after {
+        right: -0.5rem;
+    }
+    .header3-socials {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+    /* Tighter social icon spacing for Option 3 */
+    .header-option-3 .nav-social-icon svg {
+        margin: 0 4px; /* Tighter spacing like Option 2 */
+    }
+    @media (max-width: 991.98px) {
+        .header3-flex {
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem; /* equal gap between every stacked element */
+            padding: 0.2rem 0; /* reduce padding further */
+        }
+        .header3-title, .header3-socials {
+            justify-content: center;
+        }
+        .header3-subtitle {
+            margin: 0;
+            font-size: 0.98rem;
+        }
+        /* Hide dividers in mobile view */
+        .header3-subtitle::before,
+        .header3-subtitle::after {
+            display: none;
+        }
+        /* Equalize vertical gaps for stacked layout (Option 3) */
+        .header-option-3 .header3-title { margin-bottom: 0; }
+        .header-option-3 .header3-subtitle { margin-bottom: 0; }
+    }
+    /* Additional breakpoint for Option 3 to prevent 3-line wrapping */
+    @media (max-width: 1200px) {
+        .header-option-3 .header3-flex {
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.2rem 0;
+        }
+        .header-option-3 .header3-title, 
+        .header-option-3 .header3-socials {
+            justify-content: center;
+        }
+        .header-option-3 .header3-subtitle {
+            margin: 0;
+            font-size: 1rem; /* slightly larger since we have more space */
+            text-align: center;
+        }
+        /* Hide dividers in mobile view */
+        .header-option-3 .header3-subtitle::before,
+        .header-option-3 .header3-subtitle::after {
+            display: none;
+        }
+    }
+    @media (max-width: 767.98px) {
+        .header3-subtitle {
+            font-size: 0.95rem;
+        }
+    }
+    @media (max-width: 480px) {
+        .header3-subtitle {
+            font-size: 0.9rem;
+        }
+    }
+
+    /* --- Option 4 Styles --- */
+    .header-option-4 .navbar-header-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0.5rem 0;
+        gap: 0.25rem; /* Use gap for consistent, minimal spacing */
+    }
+    .header-option-4 .navbar-title-section {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0; /* Remove margin, handled by gap */
+    }
+    .header-option-4 .navbar-brand {
+        line-height: 1; /* Minimize line-height to reduce invisible space */
+    }
+    .header-option-4 .subtitle-wrapper {
+        width: 100%;
+        text-align: center;
+        margin-top: 0;
+    }
+    .header-option-4 .subtitle {
+        font-size: 1rem;
+        color: var(--beige); /* Match title color */
+        background-color: #3a4a3a;
+        padding: 0.1rem 0.85rem; /* Add minimal vertical padding for visual balance */
+        border-radius: 12px;
+        font-family: 'Calistoga', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-weight: 400; /* Remove bold */
+        line-height: 1.25; /* tighter line-height */
+        display: inline-block;
+    }
+    .header-option-4 .navbar-social-icons {
+        margin-top: 0; /* Remove margin, handled by gap */
+        line-height: 1; /* Ensure icons align consistently */
+    }
+    @media (max-width: 767.98px) {
+        .header-option-4 .subtitle { 
+            font-size: 0.9rem;
+            padding: 0.1rem 0.75rem; /* Add minimal vertical padding */
+        }
+    }
+    @media (max-width: 480px) {
+        .header-option-4 .subtitle { 
+            font-size: 0.85rem;
+            padding: 0.1rem 0.65rem; /* Add minimal vertical padding */
+        }
+    }
+</style>
+</head>
+<body>
+
+<div style="padding-top: 1rem;"></div>
+
+<!-- Option 1: Subtitle below the header -->
+<h2 class="showcase-header-title">Option 1: Subtitle Below Header</h2>
+{{ partial "header.html" . }}
+<div class="header-option-1-subtitle-bar">
+    Your central hub for Tucson's pro-democracy activism
+</div>
+<hr class="showcase-hr">
+
+<!-- Option 2: Subtitle integrated into the brand element -->
+<h2 class="showcase-header-title">Option 2: Integrated Subtitle</h2>
+<header class="header-option-2">
+    <nav class="navbar navbar-dark" style="background-color: #4d614d;">
+        <div class="container">
+            <div class="navbar-header-wrapper w-100">
+                <div class="navbar-title-section">
+                    <a href="/" title="Home">
+                        <img src="/images/cactuscircle.png" alt="Cactus" class="cactus-icon cactus-left">
+                    </a>
+                    <div class="navbar-brand-wrapper">
+                        <a class="navbar-brand" href="/">{{ .Site.Title }}</a>
+                        <span class="subtitle">Your central hub for Tucson's pro-democracy activism</span>
+                    </div>
+                </div>
+                <div class="navbar-social-icons">
+                     <a title="Email" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="mailto:info@takeactiontucson.org" aria-label="Email" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.750503340744733">Email</title><path d="M18.821,20.5H5.179A3.683,3.683,0,0,1,1.5,16.821V7.179A3.683,3.683,0,0,1,5.179,3.5H18.821A3.683,3.683,0,0,1,22.5,7.179v9.642A3.683,3.683,0,0,1,18.821,20.5ZM5.179,4.5A2.682,2.682,0,0,0,2.5,7.179v9.642A2.682,2.682,0,0,0,5.179,19.5H18.821A2.682,2.682,0,0,0,21.5,16.821V7.179A2.682,2.682,0,0,0,18.821,4.5Z"></path><path d="M12,14.209a.5.5,0,0,1-.346-.138L4.286,7.028a.5.5,0,0,1,.691-.723L12,13.018l7.023-6.713a.5.5,0,1,1,.691.723l-7.368,7.043A.5.5,0,0,1,12,14.209Z"></path><path d="M4.7,17.833a.5.5,0,0,1-.347-.86l5.54-5.31a.5.5,0,0,1,.692.722L5.048,17.694A.5.5,0,0,1,4.7,17.833Z"></path><path d="M19.3,17.832a.5.5,0,0,1-.346-.139l-5.538-5.308a.5.5,0,0,1,.692-.722l5.538,5.308a.5.5,0,0,1-.346.861Z"></path></svg><span class="sr-only">Email</span></a>
+                     <a title="Discord" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://discord.com/invite/3WVCnq7nUj" aria-label="Discord" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.20918232220982136">Discord</title><path d="M6.613 6.27a.5.5 0 1 0 .274.96l-.274-.96Zm10.5.96a.5.5 0 0 0 .274-.96l-.274.96ZM6.304 16.77a.5.5 0 0 0-.275.96l.275-.96Zm11.667.96a.5.5 0 1 0-.275-.96l.275.96Zm-1.388.103a.5.5 0 1 0-1 0h1Zm5.917 0 .447.224a.495.495 0 0 0 .017-.038l-.464-.186ZM20.75 4.417l.471-.167a.5.5 0 0 0-.185-.244l-.286.41Zm-5.25-1.75.053-.497a.5.5 0 0 0-.517.311l.464.186Zm-1.63 2.73a.5.5 0 1 0 .928.372l-.929-.371ZM8.416 17.834a.5.5 0 0 0-1 0h1Zm-6.526 0-.467.178c.004.013.01.025.015.037l.452-.215ZM3.557 4.417l-.295-.404a.5.5 0 0 0-.18.245l.475.159ZM8.5 2.667l.464-.186a.5.5 0 0 0-.519-.311l.055.497Zm.702 3.102a.5.5 0 1 0 .929-.371l-.929.371ZM9.167 12a.667.667 0 0 1-.667.667v1c.92 0 1.667-.746 1.667-1.667h-1Zm-.667.667A.667.667 0 0 1 7.833 12h-1c0 .92.747 1.667 1.667 1.667v-1ZM7.833 12c0-.368.299-.667.667-.667v-1c-.92 0-1.667.747-1.667 1.667h1Zm.667-.667c.368 0 .667.299.667.667h1c0-.92-.747-1.667-1.667-1.667v1Zm7.667.667a.667.667 0 0 1-.667.667v1c.92 0 1.667-.746 1.667-1.667h-1Zm-.667.667a.667.667 0 0 1-.667-.667h-1c0 .92.746 1.667 1.667 1.667v-1ZM14.833 12c0-.368.299-.667.667-.667v-1c-.92 0-1.667.747-1.667 1.667h1Zm.667-.667c.368 0 .667.299.667.667h1c0-.92-.747-1.667-1.667-1.667v1ZM6.887 7.231c2.018-.577 3.573-.856 5.113-.856 1.54 0 3.095.28 5.113.856l.274-.962c-2.065-.59-3.719-.894-5.387-.894-1.668 0-3.322.304-5.387.894l.274.962Zm-.858 10.5c4.173 1.192 7.769 1.192 11.942 0l-.275-.962c-3.994 1.141-7.398 1.141-11.392 0l-.275.962Zm9.554.102c0 .398.144.84.327 1.246.189.416.442.844.712 1.229.268.383.562.738.837 1.003.137.131.28.251.421.341.127.081.318.181.537.181v-1c.073 0 .082.028 0-.024a1.822 1.822 0 0 1-.264-.219 6.027 6.027 0 0 1-.712-.856 6.848 6.848 0 0 1-.62-1.068c-.163-.36-.238-.647-.238-.833h-1Zm2.834 4c1.061 0 2.006-.585 2.753-1.307.755-.728 1.369-1.653 1.777-2.469l-.894-.447c-.37.74-.922 1.564-1.578 2.197-.662.64-1.37 1.026-2.058 1.026v1Zm4.547-3.814c.435-1.087.57-2.887.325-5.197-.248-2.329-.89-5.235-2.068-8.572l-.942.333c1.155 3.275 1.777 6.105 2.016 8.345.24 2.26.084 3.862-.26 4.72l.93.371ZM21.036 4.006c-1.8-1.254-3.699-1.646-5.483-1.836l-.106.994c1.716.183 3.418.549 5.017 1.663l.572-.82Zm-6-1.525-1.167 2.917.929.371 1.166-2.917-.928-.37Zm-7.62 15.352c0 .196-.07.49-.218.85-.144.35-.344.725-.563 1.07-.22.345-.451.645-.649.852-.1.105-.18.174-.238.213-.073.05-.054.015.031.015v1c.225 0 .415-.108.534-.19.135-.092.27-.214.396-.347.255-.267.524-.623.769-1.006.245-.385.475-.813.645-1.228.167-.405.294-.84.294-1.229h-1Zm-1.637 3c-.638 0-1.304-.377-1.935-1.017-.623-.632-1.149-1.457-1.502-2.198l-.903.43c.388.815.973 1.74 1.693 2.47.71.72 1.618 1.315 2.647 1.315v-1Zm-3.42-3.178c-.33-.861-.478-2.469-.249-4.73.228-2.242.82-5.073 1.92-8.349l-.947-.318c-1.12 3.335-1.732 6.24-1.967 8.567-.234 2.308-.105 4.104.308 5.186l.934-.356ZM3.851 4.82c1.52-1.111 3.049-1.474 4.703-1.656l-.11-.994c-1.74.191-3.465.587-5.183 1.843l.59.807Zm4.184-1.968L9.202 5.77l.929-.371L8.964 2.48l-.928.371Z"></path></svg><span class="sr-only">Discord</span></a>
+                     <a title="Bluesky" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://bsky.app/profile/takeactiontucson.org" aria-label="Bluesky" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.8256755807182979">Bluesky</title><path fill-rule="evenodd" d="M3.203 1.544c.713.124 1.618.522 2.854 1.395 1.313.927 2.655 2.313 3.787 3.698A27 27 0 0 1 12 9.657a27 27 0 0 1 2.156-3.02c1.132-1.385 2.474-2.77 3.787-3.698l.247.35-.247-.35c1.236-.872 2.141-1.271 2.854-1.395a2.52 2.52 0 0 1 1.582.211c.542.245.811.758.948 1.2.14.454.173.936.173 1.277 0 .342-.089 1.66-.203 2.965a65 65 0 0 1-.188 1.873c-.063.53-.13 1.004-.202 1.243-.536 1.802-1.925 2.812-3.517 3.24.696.341 1.3.797 1.677 1.397.418.663.529 1.453.262 2.333-.26.86-.877 1.794-1.885 2.812l-.026.024c-1.334 1.165-2.472 1.75-3.469 1.836-1.038.089-1.827-.372-2.411-1.058-.568-.668-.963-1.569-1.267-2.447a22 22 0 0 1-.292-.917c-.109.32-.228.646-.358.97-.362.898-.827 1.811-1.441 2.485-.625.684-1.44 1.156-2.464 1.054-.992-.098-2.064-.727-3.247-1.952l-.012-.013c-1.065-1.186-1.705-2.205-1.969-3.093-.27-.914-.143-1.697.325-2.328.382-.515.959-.884 1.604-1.158-1.51-.457-2.81-1.456-3.324-3.185-.071-.24-.14-.712-.202-1.243-.065-.55-.13-1.215-.188-1.873C.59 5.893.5 4.574.5 4.232s.034-.823.173-1.276c.137-.443.406-.956.948-1.201a2.5 2.5 0 0 1 1.582-.21M7.36 12.76c-2.347.258-4.665-.572-5.308-2.73-.041-.141-.101-.521-.167-1.076A64 64 0 0 1 1.7 7.11c-.116-1.317-.2-2.588-.2-2.878s.03-.661.129-.982c.102-.33.246-.513.403-.584a1.53 1.53 0 0 1 1.001-.136c.504.087 1.267.393 2.447 1.226C6.69 4.61 7.965 5.92 9.07 7.27c1.103 1.349 2.008 2.706 2.485 3.635a.5.5 0 0 0 .89 0c.477-.929 1.382-2.286 2.485-3.635 1.105-1.35 2.38-2.66 3.59-3.514 1.18-.833 1.943-1.139 2.447-1.226a1.53 1.53 0 0 1 1 .136c.158.072.302.253.404.584.099.32.129.692.129.982s-.084 1.561-.2 2.878a64 64 0 0 1-.184 1.843c-.066.555-.126.935-.168 1.075-.642 2.159-2.96 2.989-5.307 2.73a16 16 0 0 0-.383-.051.5.5 0 0 0-.14.99q.195.03.395.054c.86.128 1.659.342 2.311.64.66.303 1.134.673 1.397 1.092.252.4.34.886.151 1.51-.194.64-.686 1.434-1.626 2.385-1.264 1.101-2.2 1.522-2.882 1.58-.643.056-1.137-.206-1.565-.71-.444-.521-.79-1.278-1.083-2.125a30 30 0 0 1-.516-1.702q-.11-.398-.22-.77a.5.5 0 0 0-.96 0l-.006.022c-.218.731-.48 1.61-.82 2.455-.347.86-.759 1.643-1.253 2.186-.485.532-1.012.794-1.626.733-.646-.064-1.508-.496-2.62-1.645-1.019-1.136-1.546-2.022-1.748-2.702-.194-.656-.085-1.105.17-1.448.276-.373.773-.688 1.472-.944.69-.252 1.52-.427 2.398-.558q.2-.022.395-.053a.5.5 0 0 0-.14-.99q-.194.024-.383.051"></path></svg><span class="sr-only">Bluesky</span></a>
+                     <a title="Instagram" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://instagram.com/takeactiontucson" aria-label="Instagram" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.104876997366671">Instagram</title><path d="M21.938,7.71a7.329,7.329,0,0,0-.456-2.394,4.615,4.615,0,0,0-1.1-1.694,4.61,4.61,0,0,0-1.7-1.1,7.318,7.318,0,0,0-2.393-.456C15.185,2.012,14.817,2,12,2s-3.185.012-4.29.062a7.329,7.329,0,0,0-2.394.456,4.615,4.615,0,0,0-1.694,1.1,4.61,4.61,0,0,0-1.1,1.7A7.318,7.318,0,0,0,2.062,7.71C2.012,8.814,2,9.182,2,12s.012,3.186.062,4.29a7.329,7.329,0,0,0,.456,2.394,4.615,4.615,0,0,0,1.1,1.694,4.61,4.61,0,0,0,1.7,1.1,7.318,7.318,0,0,0,2.393.456c1.1.05,1.472.062,4.29.062s3.186-.012,4.29-.062a7.329,7.329,0,0,0,2.394-.456,4.9,4.9,0,0,0,2.8-2.8,7.318,7.318,0,0,0,.456-2.393c.05-1.1.062-1.472.062-4.29S21.988,8.814,21.938,7.71Zm-1,8.534a6.351,6.351,0,0,1-.388,2.077,3.9,3.9,0,0,1-2.228,2.229,6.363,6.363,0,0,1-2.078.388C15.159,20.988,14.8,21,12,21s-3.159-.012-4.244-.062a6.351,6.351,0,0,1-2.077-.388,3.627,3.627,0,0,1-1.35-.879,3.631,3.631,0,0,1-.879-1.349,6.363,6.363,0,0,1-.388-2.078C3.012,15.159,3,14.8,3,12s.012-3.159.062-4.244A6.351,6.351,0,0,1,3.45,5.679a3.627,3.627,0,0,1,.879-1.35A3.631,3.631,0,0,1,5.678,3.45a6.363,6.363,0,0,1,2.078-.388C8.842,3.012,9.205,3,12,3s3.158.012,4.244.062a6.351,6.351,0,0,1,2.077.388,3.627,3.627,0,0,1,1.35.879,3.631,3.631,0,0,1,.879,1.349,6.363,6.363,0,0,1,.388,2.078C20.988,8.841,21,9.2,21,12S20.988,15.159,20.938,16.244Z"></path><path d="M17.581,5.467a.953.953,0,1,0,.952.952A.954.954,0,0,0,17.581,5.467Z"></path><path d="M12,7.073A4.927,4.927,0,1,0,16.927,12,4.932,4.932,0,0,0,12,7.073Zm0,8.854A3.927,3.927,0,1,1,15.927,12,3.932,3.932,0,0,1,12,15.927Z"></path></svg><span class="sr-only">Instagram</span></a>
+                     <a title="Facebook" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/takeactiontucson" aria-label="Facebook" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.06017338581421605">Facebook</title><path d="M23,12A11,11,0,1,0,10.279,22.865h0a11.08,11.08,0,0,0,3.436,0h0A10.952,10.952,0,0,0,23,12ZM10.859,21.935v-6.9a.5.5,0,0,0-.5-.5H8.193V12.5h2.166a.5.5,0,0,0,.5-.5V9.686c0-2.278,1.264-3.585,3.459-3.585a15.392,15.392,0,0,1,1.858.137V7.89h-.824l-.019,0a2,2,0,0,0-2.181,1.735,1.8,1.8,0,0,0-.011.4V12a.5.5,0,0,0,.5.5H15.97l-.312,2.035H13.641a.5.5,0,0,0-.5.5v6.9A10.124,10.124,0,0,1,10.859,21.935Zm3.282-.166V15.535h1.946a.5.5,0,0,0,.5-.425l.465-3.035a.5.5,0,0,0-.494-.575H14.141V10.016a1.267,1.267,0,0,1,.308-.821,1.218,1.218,0,0,1,.9-.3h1.324a.5.5,0,0,0,.5-.5V5.806a.5.5,0,0,0-.42-.494A16.661,16.661,0,0,0,14.325,5.1c-2.754,0-4.466,1.757-4.466,4.585V11.5H7.693a.5.5,0,0,0-.5.5v3.035a.5.5,0,0,0,.5.5H9.859v6.234a10,10,0,1,1,4.282,0Z"></path></svg><span class="sr-only">Facebook</span></a>
+                     <a title="TikTok" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://tiktok.com/@takeactiontucson" aria-label="TikTok" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle"id="title_0.9382529314860123">TikTok</title><path d="M9.37,23.5a7.468,7.468,0,0,1,0-14.936.537.537,0,0,1,.538.5v3.8a.542.542,0,0,1-.5.5,2.671,2.671,0,1,0,2.645,2.669.432.432,0,0,1,0-.05V1a.5.5,0,0,1,.5-.5h3.787a.5.5,0,0,1,.5.5A4.759,4.759,0,0,0,21.59,5.76a.5.5,0,0,1,.5.5L22.1,10a.533.533,0,0,1-.519.515,9.427,9.427,0,0,1-4.741-1.268v6.789A7.476,7.476,0,0,1,9.37,23.5ZM8.908,9.585a6.466,6.466,0,1,0,6.93,6.447V8.326a.5.5,0,0,1,.791-.407A8.441,8.441,0,0,0,21.1,9.5l-.006-2.76A5.761,5.761,0,0,1,15.859,1.5H13.051V16.032a.458.458,0,0,1,0,.053,3.672,3.672,0,1,1-4.14-3.695Z"></path></svg><span class="sr-only">TikTok</span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<hr class="showcase-hr">
+
+<!-- Option 3: Subtitle next to the title -->
+<h2 class="showcase-header-title">Option 3: Adjacent Subtitle</h2>
+<header class="header-option-3">
+    <nav class="navbar navbar-dark" style="background-color: #4d614d;">
+        <div class="container">
+            <div class="header3-flex w-100">
+                <div class="header3-title">
+                    <a href="/" title="Home">
+                        <img src="/images/cactuscircle.png" alt="Cactus" class="cactus-icon cactus-left">
+                    </a>
+                    <a class="navbar-brand" href="/">{{ .Site.Title }}</a>
+                </div>
+                <div class="header3-subtitle">
+                    Your central hub for Tucson's pro-democracy activism
+                </div>
+                <div class="header3-socials">
+                     <a title="Email" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="mailto:info@takeactiontucson.org" aria-label="Email" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.750503340744733">Email</title><path d="M18.821,20.5H5.179A3.683,3.683,0,0,1,1.5,16.821V7.179A3.683,3.683,0,0,1,5.179,3.5H18.821A3.683,3.683,0,0,1,22.5,7.179v9.642A3.683,3.683,0,0,1,18.821,20.5ZM5.179,4.5A2.682,2.682,0,0,0,2.5,7.179v9.642A2.682,2.682,0,0,0,5.179,19.5H18.821A2.682,2.682,0,0,0,21.5,16.821V7.179A2.682,2.682,0,0,0,18.821,4.5Z"></path><path d="M12,14.209a.5.5,0,0,1-.346-.138L4.286,7.028a.5.5,0,0,1,.691-.723L12,13.018l7.023-6.713a.5.5,0,1,1,.691.723l-7.368,7.043A.5.5,0,0,1,12,14.209Z"></path><path d="M4.7,17.833a.5.5,0,0,1-.347-.86l5.54-5.31a.5.5,0,0,1,.692.722L5.048,17.694A.5.5,0,0,1,4.7,17.833Z"></path><path d="M19.3,17.832a.5.5,0,0,1-.346-.139l-5.538-5.308a.5.5,0,0,1,.692-.722l5.538,5.308a.5.5,0,0,1-.346.861Z"></path></svg><span class="sr-only">Email</span></a>
+                     <a title="Discord" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://discord.com/invite/3WVCnq7nUj" aria-label="Discord" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.20918232220982136">Discord</title><path d="M6.613 6.27a.5.5 0 1 0 .274.96l-.274-.96Zm10.5.96a.5.5 0 0 0 .274-.96l-.274.96ZM6.304 16.77a.5.5 0 0 0-.275.96l.275-.96Zm11.667.96a.5.5 0 1 0-.275-.96l.275.96Zm-1.388.103a.5.5 0 1 0-1 0h1Zm5.917 0 .447.224a.495.495 0 0 0 .017-.038l-.464-.186ZM20.75 4.417l.471-.167a.5.5 0 0 0-.185-.244l-.286.41Zm-5.25-1.75.053-.497a.5.5 0 0 0-.517.311l.464.186Zm-1.63 2.73a.5.5 0 1 0 .928.372l-.929-.371ZM8.416 17.834a.5.5 0 0 0-1 0h1Zm-6.526 0-.467.178c.004.013.01.025.015.037l.452-.215ZM3.557 4.417l-.295-.404a.5.5 0 0 0-.18.245l.475.159ZM8.5 2.667l.464-.186a.5.5 0 0 0-.519-.311l.055.497Zm.702 3.102a.5.5 0 1 0 .929-.371l-.929.371ZM9.167 12a.667.667 0 0 1-.667.667v1c.92 0 1.667-.746 1.667-1.667h-1Zm-.667.667A.667.667 0 0 1 7.833 12h-1c0 .92.747 1.667 1.667 1.667v-1ZM7.833 12c0-.368.299-.667.667-.667v-1c-.92 0-1.667.747-1.667 1.667h1Zm.667-.667c.368 0 .667.299.667.667h1c0-.92-.747-1.667-1.667-1.667v1Zm7.667.667a.667.667 0 0 1-.667.667v1c.92 0 1.667-.746 1.667-1.667h-1Zm-.667.667a.667.667 0 0 1-.667-.667h-1c0 .92.746 1.667 1.667 1.667v-1ZM14.833 12c0-.368.299-.667.667-.667v-1c-.92 0-1.667.747-1.667 1.667h1Zm.667-.667c.368 0 .667.299.667.667h1c0-.92-.747-1.667-1.667-1.667v1ZM6.887 7.231c2.018-.577 3.573-.856 5.113-.856 1.54 0 3.095.28 5.113.856l.274-.962c-2.065-.59-3.719-.894-5.387-.894-1.668 0-3.322.304-5.387.894l.274.962Zm-.858 10.5c4.173 1.192 7.769 1.192 11.942 0l-.275-.962c-3.994 1.141-7.398 1.141-11.392 0l-.275.962Zm9.554.102c0 .398.144.84.327 1.246.189.416.442.844.712 1.229.268.383.562.738.837 1.003.137.131.28.251.421.341.127.081.318.181.537.181v-1c.073 0 .082.028 0-.024a1.822 1.822 0 0 1-.264-.219 6.027 6.027 0 0 1-.712-.856 6.848 6.848 0 0 1-.62-1.068c-.163-.36-.238-.647-.238-.833h-1Zm2.834 4c1.061 0 2.006-.585 2.753-1.307.755-.728 1.369-1.653 1.777-2.469l-.894-.447c-.37.74-.922 1.564-1.578 2.197-.662.64-1.37 1.026-2.058 1.026v1Zm4.547-3.814c.435-1.087.57-2.887.325-5.197-.248-2.329-.89-5.235-2.068-8.572l-.942.333c1.155 3.275 1.777 6.105 2.016 8.345.24 2.26.084 3.862-.26 4.72l.93.371ZM21.036 4.006c-1.8-1.254-3.699-1.646-5.483-1.836l-.106.994c1.716.183 3.418.549 5.017 1.663l.572-.82Zm-6-1.525-1.167 2.917.929.371 1.166-2.917-.928-.37Zm-7.62 15.352c0 .196-.07.49-.218.85-.144.35-.344.725-.563 1.07-.22.345-.451.645-.649.852-.1.105-.18.174-.238.213-.073.05-.054.015.031.015v1c.225 0 .415-.108.534-.19.135-.092.27-.214.396-.347.255-.267.524-.623.769-1.006.245-.385.475-.813.645-1.228.167-.405.294-.84.294-1.229h-1Zm-1.637 3c-.638 0-1.304-.377-1.935-1.017-.623-.632-1.149-1.457-1.502-2.198l-.903.43c.388.815.973 1.74 1.693 2.47.71.72 1.618 1.315 2.647 1.315v-1Zm-3.42-3.178c-.33-.861-.478-2.469-.249-4.73.228-2.242.82-5.073 1.92-8.349l-.947-.318c-1.12 3.335-1.732 6.24-1.967 8.567-.234 2.308-.105 4.104.308 5.186l.934-.356ZM3.851 4.82c1.52-1.111 3.049-1.474 4.703-1.656l-.11-.994c-1.74.191-3.465.587-5.183 1.843l.59.807Zm4.184-1.968L9.202 5.77l.929-.371L8.964 2.48l-.928.371Z"></path></svg><span class="sr-only">Discord</span></a>
+                     <a title="Bluesky" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://bsky.app/profile/takeactiontucson.org" aria-label="Bluesky" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.8256755807182979">Bluesky</title><path fill-rule="evenodd" d="M3.203 1.544c.713.124 1.618.522 2.854 1.395 1.313.927 2.655 2.313 3.787 3.698A27 27 0 0 1 12 9.657a27 27 0 0 1 2.156-3.02c1.132-1.385 2.474-2.77 3.787-3.698l.247.35-.247-.35c1.236-.872 2.141-1.271 2.854-1.395a2.52 2.52 0 0 1 1.582.211c.542.245.811.758.948 1.2.14.454.173.936.173 1.277 0 .342-.089 1.66-.203 2.965a65 65 0 0 1-.188 1.873c-.063.53-.13 1.004-.202 1.243-.536 1.802-1.925 2.812-3.517 3.24.696.341 1.3.797 1.677 1.397.418.663.529 1.453.262 2.333-.26.86-.877 1.794-1.885 2.812l-.026.024c-1.334 1.165-2.472 1.75-3.469 1.836-1.038.089-1.827-.372-2.411-1.058-.568-.668-.963-1.569-1.267-2.447a22 22 0 0 1-.292-.917c-.109.32-.228.646-.358.97-.362.898-.827 1.811-1.441 2.485-.625.684-1.44 1.156-2.464 1.054-.992-.098-2.064-.727-3.247-1.952l-.012-.013c-1.065-1.186-1.705-2.205-1.969-3.093-.27-.914-.143-1.697.325-2.328.382-.515.959-.884 1.604-1.158-1.51-.457-2.81-1.456-3.324-3.185-.071-.24-.14-.712-.202-1.243-.065-.55-.13-1.215-.188-1.873C.59 5.893.5 4.574.5 4.232s.034-.823.173-1.276c.137-.443.406-.956.948-1.201a2.5 2.5 0 0 1 1.582-.21M7.36 12.76c-2.347.258-4.665-.572-5.308-2.73-.041-.141-.101-.521-.167-1.076A64 64 0 0 1 1.7 7.11c-.116-1.317-.2-2.588-.2-2.878s.03-.661.129-.982c.102-.33.246-.513.403-.584a1.53 1.53 0 0 1 1.001-.136c.504.087 1.267.393 2.447 1.226C6.69 4.61 7.965 5.92 9.07 7.27c1.103 1.349 2.008 2.706 2.485 3.635a.5.5 0 0 0 .89 0c.477-.929 1.382-2.286 2.485-3.635 1.105-1.35 2.38-2.66 3.59-3.514 1.18-.833 1.943-1.139 2.447-1.226a1.53 1.53 0 0 1 1 .136c.158.072.302.253.404.584.099.32.129.692.129.982s-.084 1.561-.2 2.878a64 64 0 0 1-.184 1.843c-.066.555-.126.935-.168 1.075-.642 2.159-2.96 2.989-5.307 2.73a16 16 0 0 0-.383-.051.5.5 0 0 0-.14.99q.195.03.395.054c.86.128 1.659.342 2.311.64.66.303 1.134.673 1.397 1.092.252.4.34.886.151 1.51-.194.64-.686 1.434-1.626 2.385-1.264 1.101-2.2 1.522-2.882 1.58-.643.056-1.137-.206-1.565-.71-.444-.521-.79-1.278-1.083-2.125a30 30 0 0 1-.516-1.702q-.11-.398-.22-.77a.5.5 0 0 0-.96 0l-.006.022c-.218.731-.48 1.61-.82 2.455-.347.86-.759 1.643-1.253 2.186-.485.532-1.012.794-1.626.733-.646-.064-1.508-.496-2.62-1.645-1.019-1.136-1.546-2.022-1.748-2.702-.194-.656-.085-1.105.17-1.448.276-.373.773-.688 1.472-.944.69-.252 1.52-.427 2.398-.558q.2-.022.395-.053a.5.5 0 0 0-.14-.99q-.194.024-.383.051"></path></svg><span class="sr-only">Bluesky</span></a>
+                     <a title="Instagram" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://instagram.com/takeactiontucson" aria-label="Instagram" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.104876997366671">Instagram</title><path d="M21.938,7.71a7.329,7.329,0,0,0-.456-2.394,4.615,4.615,0,0,0-1.1-1.694,4.61,4.61,0,0,0-1.7-1.1,7.318,7.318,0,0,0-2.393-.456C15.185,2.012,14.817,2,12,2s-3.185.012-4.29.062a7.329,7.329,0,0,0-2.394.456,4.615,4.615,0,0,0-1.694,1.1,4.61,4.61,0,0,0-1.1,1.7A7.318,7.318,0,0,0,2.062,7.71C2.012,8.814,2,9.182,2,12s.012,3.186.062,4.29a7.329,7.329,0,0,0,.456,2.394,4.615,4.615,0,0,0,1.1,1.694,4.61,4.61,0,0,0,1.7,1.1,7.318,7.318,0,0,0,2.393.456c1.1.05,1.472.062,4.29.062s3.186-.012,4.29-.062a7.329,7.329,0,0,0,2.394-.456,4.9,4.9,0,0,0,2.8-2.8,7.318,7.318,0,0,0,.456-2.393c.05-1.1.062-1.472.062-4.29S21.988,8.814,21.938,7.71Zm-1,8.534a6.351,6.351,0,0,1-.388,2.077,3.9,3.9,0,0,1-2.228,2.229,6.363,6.363,0,0,1-2.078.388C15.159,20.988,14.8,21,12,21s-3.159-.012-4.244-.062a6.351,6.351,0,0,1-2.077-.388,3.627,3.627,0,0,1-1.35-.879,3.631,3.631,0,0,1-.879-1.349,6.363,6.363,0,0,1-.388-2.078C3.012,15.159,3,14.8,3,12s.012-3.159.062-4.244A6.351,6.351,0,0,1,3.45,5.679a3.627,3.627,0,0,1,.879-1.35A3.631,3.631,0,0,1,5.678,3.45a6.363,6.363,0,0,1,2.078-.388C8.842,3.012,9.205,3,12,3s3.158.012,4.244.062a6.351,6.351,0,0,1,2.077.388,3.627,3.627,0,0,1,1.35.879,3.631,3.631,0,0,1,.879,1.349,6.363,6.363,0,0,1,.388,2.078C20.988,8.841,21,9.2,21,12S20.988,15.159,20.938,16.244Z"></path><path d="M17.581,5.467a.953.953,0,1,0,.952.952A.954.954,0,0,0,17.581,5.467Z"></path><path d="M12,7.073A4.927,4.927,0,1,0,16.927,12,4.932,4.932,0,0,0,12,7.073Zm0,8.854A3.927,3.927,0,1,1,15.927,12,3.932,3.932,0,0,1,12,15.927Z"></path></svg><span class="sr-only">Instagram</span></a>
+                     <a title="Facebook" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/takeactiontucson" aria-label="Facebook" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.06017338581421605">Facebook</title><path d="M23,12A11,11,0,1,0,10.279,22.865h0a11.08,11.08,0,0,0,3.436,0h0A10.952,10.952,0,0,0,23,12ZM10.859,21.935v-6.9a.5.5,0,0,0-.5-.5H8.193V12.5h2.166a.5.5,0,0,0,.5-.5V9.686c0-2.278,1.264-3.585,3.459-3.585a15.392,15.392,0,0,1,1.858.137V7.89h-.824l-.019,0a2,2,0,0,0-2.181,1.735,1.8,1.8,0,0,0-.011.4V12a.5.5,0,0,0,.5.5H15.97l-.312,2.035H13.641a.5.5,0,0,0-.5.5v6.9A10.124,10.124,0,0,1,10.859,21.935Zm3.282-.166V15.535h1.946a.5.5,0,0,0,.5-.425l.465-3.035a.5.5,0,0,0-.494-.575H14.141V10.016a1.267,1.267,0,0,1,.308-.821,1.218,1.218,0,0,1,.9-.3h1.324a.5.5,0,0,0,.5-.5V5.806a.5.5,0,0,0-.42-.494A16.661,16.661,0,0,0,14.325,5.1c-2.754,0-4.466,1.757-4.466,4.585V11.5H7.693a.5.5,0,0,0-.5.5v3.035a.5.5,0,0,0,.5.5H9.859v6.234a10,10,0,1,1,4.282,0Z"></path></svg><span class="sr-only">Facebook</span></a>
+                     <a title="TikTok" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://tiktok.com/@takeactiontucson" aria-label="TikTok" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle"id="title_0.9382529314860123">TikTok</title><path d="M9.37,23.5a7.468,7.468,0,0,1,0-14.936.537.537,0,0,1,.538.5v3.8a.542.542,0,0,1-.5.5,2.671,2.671,0,1,0,2.645,2.669.432.432,0,0,1,0-.05V1a.5.5,0,0,1,.5-.5h3.787a.5.5,0,0,1,.5.5A4.759,4.759,0,0,0,21.59,5.76a.5.5,0,0,1,.5.5L22.1,10a.533.533,0,0,1-.519.515,9.427,9.427,0,0,1-4.741-1.268v6.789A7.476,7.476,0,0,1,9.37,23.5ZM8.908,9.585a6.466,6.466,0,1,0,6.93,6.447V8.326a.5.5,0,0,1,.791-.407A8.441,8.441,0,0,0,21.1,9.5l-.006-2.76A5.761,5.761,0,0,1,15.859,1.5H13.051V16.032a.458.458,0,0,1,0,.053,3.672,3.672,0,1,1-4.14-3.695Z"></path></svg><span class="sr-only">TikTok</span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<hr class="showcase-hr">
+
+<!-- Option 4: Centered with subtitle below -->
+<h2 class="showcase-header-title">Option 4: Centered Layout</h2>
+<header class="header-option-4">
+    <nav class="navbar navbar-dark" style="background-color: #4d614d;">
+        <div class="container">
+            <div class="navbar-header-wrapper w-100">
+                <div class="navbar-title-section justify-content-center">
+                    <a href="/" title="Home">
+                        <img src="/images/cactuscircle.png" alt="Cactus" class="cactus-icon cactus-left">
+                    </a>
+                    <a class="navbar-brand" href="/">{{ .Site.Title }}</a>
+                </div>
+                <div class="subtitle-wrapper">
+                     <span class="subtitle">Your central hub for Tucson's pro-democracy activism</span>
+                </div>
+                <div class="navbar-social-icons justify-content-center w-100">
+                     <a title="Email" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="mailto:info@takeactiontucson.org" aria-label="Email" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.750503340744733">Email</title><path d="M18.821,20.5H5.179A3.683,3.683,0,0,1,1.5,16.821V7.179A3.683,3.683,0,0,1,5.179,3.5H18.821A3.683,3.683,0,0,1,22.5,7.179v9.642A3.683,3.683,0,0,1,18.821,20.5ZM5.179,4.5A2.682,2.682,0,0,0,2.5,7.179v9.642A2.682,2.682,0,0,0,5.179,19.5H18.821A2.682,2.682,0,0,0,21.5,16.821V7.179A2.682,2.682,0,0,0,18.821,4.5Z"></path><path d="M12,14.209a.5.5,0,0,1-.346-.138L4.286,7.028a.5.5,0,0,1,.691-.723L12,13.018l7.023-6.713a.5.5,0,1,1,.691.723l-7.368,7.043A.5.5,0,0,1,12,14.209Z"></path><path d="M4.7,17.833a.5.5,0,0,1-.347-.86l5.54-5.31a.5.5,0,0,1,.692.722L5.048,17.694A.5.5,0,0,1,4.7,17.833Z"></path><path d="M19.3,17.832a.5.5,0,0,1-.346-.139l-5.538-5.308a.5.5,0,0,1,.692-.722l5.538,5.308a.5.5,0,0,1-.346.861Z"></path></svg><span class="sr-only">Email</span></a>
+                     <a title="Discord" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://discord.com/invite/3WVCnq7nUj" aria-label="Discord" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.20918232220982136">Discord</title><path d="M6.613 6.27a.5.5 0 1 0 .274.96l-.274-.96Zm10.5.96a.5.5 0 0 0 .274-.96l-.274.96ZM6.304 16.77a.5.5 0 0 0-.275.96l.275-.96Zm11.667.96a.5.5 0 1 0-.275-.96l.275.96Zm-1.388.103a.5.5 0 1 0-1 0h1Zm5.917 0 .447.224a.495.495 0 0 0 .017-.038l-.464-.186ZM20.75 4.417l.471-.167a.5.5 0 0 0-.185-.244l-.286.41Zm-5.25-1.75.053-.497a.5.5 0 0 0-.517.311l.464.186Zm-1.63 2.73a.5.5 0 1 0 .928.372l-.929-.371ZM8.416 17.834a.5.5 0 0 0-1 0h1Zm-6.526 0-.467.178c.004.013.01.025.015.037l.452-.215ZM3.557 4.417l-.295-.404a.5.5 0 0 0-.18.245l.475.159ZM8.5 2.667l.464-.186a.5.5 0 0 0-.519-.311l.055.497Zm.702 3.102a.5.5 0 1 0 .929-.371l-.929.371ZM9.167 12a.667.667 0 0 1-.667.667v1c.92 0 1.667-.746 1.667-1.667h-1Zm-.667.667A.667.667 0 0 1 7.833 12h-1c0 .92.747 1.667 1.667 1.667v-1ZM7.833 12c0-.368.299-.667.667-.667v-1c-.92 0-1.667.747-1.667 1.667h1Zm.667-.667c.368 0 .667.299.667.667h1c0-.92-.747-1.667-1.667-1.667v1Zm7.667.667a.667.667 0 0 1-.667.667v1c.92 0 1.667-.746 1.667-1.667h-1Zm-.667.667a.667.667 0 0 1-.667-.667h-1c0 .92.746 1.667 1.667 1.667v-1ZM14.833 12c0-.368.299-.667.667-.667v-1c-.92 0-1.667.747-1.667 1.667h1Zm.667-.667c.368 0 .667.299.667.667h1c0-.92-.747-1.667-1.667-1.667v1ZM6.887 7.231c2.018-.577 3.573-.856 5.113-.856 1.54 0 3.095.28 5.113.856l.274-.962c-2.065-.59-3.719-.894-5.387-.894-1.668 0-3.322.304-5.387.894l.274.962Zm-.858 10.5c4.173 1.192 7.769 1.192 11.942 0l-.275-.962c-3.994 1.141-7.398 1.141-11.392 0l-.275.962Zm9.554.102c0 .398.144.84.327 1.246.189.416.442.844.712 1.229.268.383.562.738.837 1.003.137.131.28.251.421.341.127.081.318.181.537.181v-1c.073 0 .082.028 0-.024a1.822 1.822 0 0 1-.264-.219 6.027 6.027 0 0 1-.712-.856 6.848 6.848 0 0 1-.62-1.068c-.163-.36-.238-.647-.238-.833h-1Zm2.834 4c1.061 0 2.006-.585 2.753-1.307.755-.728 1.369-1.653 1.777-2.469l-.894-.447c-.37.74-.922 1.564-1.578 2.197-.662.64-1.37 1.026-2.058 1.026v1Zm4.547-3.814c.435-1.087.57-2.887.325-5.197-.248-2.329-.89-5.235-2.068-8.572l-.942.333c1.155 3.275 1.777 6.105 2.016 8.345.24 2.26.084 3.862-.26 4.72l.93.371ZM21.036 4.006c-1.8-1.254-3.699-1.646-5.483-1.836l-.106.994c1.716.183 3.418.549 5.017 1.663l.572-.82Zm-6-1.525-1.167 2.917.929.371 1.166-2.917-.928-.37Zm-7.62 15.352c0 .196-.07.49-.218.85-.144.35-.344.725-.563 1.07-.22.345-.451.645-.649.852-.1.105-.18.174-.238.213-.073.05-.054.015.031.015v1c.225 0 .415-.108.534-.19.135-.092.27-.214.396-.347.255-.267.524-.623.769-1.006.245-.385.475-.813.645-1.228.167-.405.294-.84.294-1.229h-1Zm-1.637 3c-.638 0-1.304-.377-1.935-1.017-.623-.632-1.149-1.457-1.502-2.198l-.903.43c.388.815.973 1.74 1.693 2.47.71.72 1.618 1.315 2.647 1.315v-1Zm-3.42-3.178c-.33-.861-.478-2.469-.249-4.73.228-2.242.82-5.073 1.92-8.349l-.947-.318c-1.12 3.335-1.732 6.24-1.967 8.567-.234 2.308-.105 4.104.308 5.186l.934-.356ZM3.851 4.82c1.52-1.111 3.049-1.474 4.703-1.656l-.11-.994c-1.74.191-3.465.587-5.183 1.843l.59.807Zm4.184-1.968L9.202 5.77l.929-.371L8.964 2.48l-.928.371Z"></path></svg><span class="sr-only">Discord</span></a>
+                     <a title="Bluesky" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://bsky.app/profile/takeactiontucson.org" aria-label="Bluesky" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.8256755807182979">Bluesky</title><path fill-rule="evenodd" d="M3.203 1.544c.713.124 1.618.522 2.854 1.395 1.313.927 2.655 2.313 3.787 3.698A27 27 0 0 1 12 9.657a27 27 0 0 1 2.156-3.02c1.132-1.385 2.474-2.77 3.787-3.698l.247.35-.247-.35c1.236-.872 2.141-1.271 2.854-1.395a2.52 2.52 0 0 1 1.582.211c.542.245.811.758.948 1.2.14.454.173.936.173 1.277 0 .342-.089 1.66-.203 2.965a65 65 0 0 1-.188 1.873c-.063.53-.13 1.004-.202 1.243-.536 1.802-1.925 2.812-3.517 3.24.696.341 1.3.797 1.677 1.397.418.663.529 1.453.262 2.333-.26.86-.877 1.794-1.885 2.812l-.026.024c-1.334 1.165-2.472 1.75-3.469 1.836-1.038.089-1.827-.372-2.411-1.058-.568-.668-.963-1.569-1.267-2.447a22 22 0 0 1-.292-.917c-.109.32-.228.646-.358.97-.362.898-.827 1.811-1.441 2.485-.625.684-1.44 1.156-2.464 1.054-.992-.098-2.064-.727-3.247-1.952l-.012-.013c-1.065-1.186-1.705-2.205-1.969-3.093-.27-.914-.143-1.697.325-2.328.382-.515.959-.884 1.604-1.158-1.51-.457-2.81-1.456-3.324-3.185-.071-.24-.14-.712-.202-1.243-.065-.55-.13-1.215-.188-1.873C.59 5.893.5 4.574.5 4.232s.034-.823.173-1.276c.137-.443.406-.956.948-1.201a2.5 2.5 0 0 1 1.582-.21M7.36 12.76c-2.347.258-4.665-.572-5.308-2.73-.041-.141-.101-.521-.167-1.076A64 64 0 0 1 1.7 7.11c-.116-1.317-.2-2.588-.2-2.878s.03-.661.129-.982c.102-.33.246-.513.403-.584a1.53 1.53 0 0 1 1.001-.136c.504.087 1.267.393 2.447 1.226C6.69 4.61 7.965 5.92 9.07 7.27c1.103 1.349 2.008 2.706 2.485 3.635a.5.5 0 0 0 .89 0c.477-.929 1.382-2.286 2.485-3.635 1.105-1.35 2.38-2.66 3.59-3.514 1.18-.833 1.943-1.139 2.447-1.226a1.53 1.53 0 0 1 1 .136c.158.072.302.253.404.584.099.32.129.692.129.982s-.084 1.561-.2 2.878a64 64 0 0 1-.184 1.843c-.066.555-.126.935-.168 1.075-.642 2.159-2.96 2.989-5.307 2.73a16 16 0 0 0-.383-.051.5.5 0 0 0-.14.99q.195.03.395.054c.86.128 1.659.342 2.311.64.66.303 1.134.673 1.397 1.092.252.4.34.886.151 1.51-.194.64-.686 1.434-1.626 2.385-1.264 1.101-2.2 1.522-2.882 1.58-.643.056-1.137-.206-1.565-.71-.444-.521-.79-1.278-1.083-2.125a30 30 0 0 1-.516-1.702q-.11-.398-.22-.77a.5.5 0 0 0-.96 0l-.006.022c-.218.731-.48 1.61-.82 2.455-.347.86-.759 1.643-1.253 2.186-.485.532-1.012.794-1.626.733-.646-.064-1.508-.496-2.62-1.645-1.019-1.136-1.546-2.022-1.748-2.702-.194-.656-.085-1.105.17-1.448.276-.373.773-.688 1.472-.944.69-.252 1.52-.427 2.398-.558q.2-.022.395-.053a.5.5 0 0 0-.14-.99q-.194.024-.383.051"></path></svg><span class="sr-only">Bluesky</span></a>
+                     <a title="Instagram" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://instagram.com/takeactiontucson" aria-label="Instagram" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.104876997366671">Instagram</title><path d="M21.938,7.71a7.329,7.329,0,0,0-.456-2.394,4.615,4.615,0,0,0-1.1-1.694,4.61,4.61,0,0,0-1.7-1.1,7.318,7.318,0,0,0-2.393-.456C15.185,2.012,14.817,2,12,2s-3.185.012-4.29.062a7.329,7.329,0,0,0-2.394.456,4.615,4.615,0,0,0-1.694,1.1,4.61,4.61,0,0,0-1.1,1.7A7.318,7.318,0,0,0,2.062,7.71C2.012,8.814,2,9.182,2,12s.012,3.186.062,4.29a7.329,7.329,0,0,0,.456,2.394,4.615,4.615,0,0,0,1.1,1.694,4.61,4.61,0,0,0,1.7,1.1,7.318,7.318,0,0,0,2.393.456c1.1.05,1.472.062,4.29.062s3.186-.012,4.29-.062a7.329,7.329,0,0,0,2.394-.456,4.9,4.9,0,0,0,2.8-2.8,7.318,7.318,0,0,0,.456-2.393c.05-1.1.062-1.472.062-4.29S21.988,8.814,21.938,7.71Zm-1,8.534a6.351,6.351,0,0,1-.388,2.077,3.9,3.9,0,0,1-2.228,2.229,6.363,6.363,0,0,1-2.078.388C15.159,20.988,14.8,21,12,21s-3.159-.012-4.244-.062a6.351,6.351,0,0,1-2.077-.388,3.627,3.627,0,0,1-1.35-.879,3.631,3.631,0,0,1-.879-1.349,6.363,6.363,0,0,1-.388-2.078C3.012,15.159,3,14.8,3,12s.012-3.159.062-4.244A6.351,6.351,0,0,1,3.45,5.679a3.627,3.627,0,0,1,.879-1.35A3.631,3.631,0,0,1,5.678,3.45a6.363,6.363,0,0,1,2.078-.388C8.842,3.012,9.205,3,12,3s3.158.012,4.244.062a6.351,6.351,0,0,1,2.077.388,3.627,3.627,0,0,1,1.35.879,3.631,3.631,0,0,1,.879,1.349,6.363,6.363,0,0,1,.388,2.078C20.988,8.841,21,9.2,21,12S20.988,15.159,20.938,16.244Z"></path><path d="M17.581,5.467a.953.953,0,1,0,.952.952A.954.954,0,0,0,17.581,5.467Z"></path><path d="M12,7.073A4.927,4.927,0,1,0,16.927,12,4.932,4.932,0,0,0,12,7.073Zm0,8.854A3.927,3.927,0,1,1,15.927,12,3.932,3.932,0,0,1,12,15.927Z"></path></svg><span class="sr-only">Instagram</span></a>
+                     <a title="Facebook" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/takeactiontucson" aria-label="Facebook" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle" id="title_0.06017338581421605">Facebook</title><path d="M23,12A11,11,0,1,0,10.279,22.865h0a11.08,11.08,0,0,0,3.436,0h0A10.952,10.952,0,0,0,23,12ZM10.859,21.935v-6.9a.5.5,0,0,0-.5-.5H8.193V12.5h2.166a.5.5,0,0,0,.5-.5V9.686c0-2.278,1.264-3.585,3.459-3.585a15.392,15.392,0,0,1,1.858.137V7.89h-.824l-.019,0a2,2,0,0,0-2.181,1.735,1.8,1.8,0,0,0-.011.4V12a.5.5,0,0,0,.5.5H15.97l-.312,2.035H13.641a.5.5,0,0,0-.5.5v6.9A10.124,10.124,0,0,1,10.859,21.935Zm3.282-.166V15.535h1.946a.5.5,0,0,0,.5-.425l.465-3.035a.5.5,0,0,0-.494-.575H14.141V10.016a1.267,1.267,0,0,1,.308-.821,1.218,1.218,0,0,1,.9-.3h1.324a.5.5,0,0,0,.5-.5V5.806a.5.5,0,0,0-.42-.494A16.661,16.661,0,0,0,14.325,5.1c-2.754,0-4.466,1.757-4.466,4.585V11.5H7.693a.5.5,0,0,0-.5.5v3.035a.5.5,0,0,0,.5.5H9.859v6.234a10,10,0,1,1,4.282,0Z"></path></svg><span class="sr-only">Facebook</span></a>
+                     <a title="TikTok" data-testid="SocialIcon" target="_blank" rel="noopener noreferrer" href="https://tiktok.com/@takeactiontucson" aria-label="TikTok" class="social-icon nav-social-icon"><svg enable-background="new 0 0 24 24" viewBox="0 0 24 24"><title data-testid="svgTitle"id="title_0.9382529314860123">TikTok</title><path d="M9.37,23.5a7.468,7.468,0,0,1,0-14.936.537.537,0,0,1,.538.5v3.8a.542.542,0,0,1-.5.5,2.671,2.671,0,1,0,2.645,2.669.432.432,0,0,1,0-.05V1a.5.5,0,0,1,.5-.5h3.787a.5.5,0,0,1,.5.5A4.759,4.759,0,0,0,21.59,5.76a.5.5,0,0,1,.5.5L22.1,10a.533.533,0,0,1-.519.515,9.427,9.427,0,0,1-4.741-1.268v6.789A7.476,7.476,0,0,1,9.37,23.5ZM8.908,9.585a6.466,6.466,0,1,0,6.93,6.447V8.326a.5.5,0,0,1,.791-.407A8.441,8.441,0,0,0,21.1,9.5l-.006-2.76A5.761,5.761,0,0,1,15.859,1.5H13.051V16.032a.458.458,0,0,1,0,.053,3.672,3.672,0,1,1-4.14-3.695Z"></path></svg><span class="sr-only">TikTok</span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+{{ $script := resources.Get "js/main.js" | resources.Fingerprint }}
+<script src="{{ $script.RelPermalink | relURL }}"></script>
+</body>
+</html>

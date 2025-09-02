@@ -1,0 +1,405 @@
+{{ define "main" }}
+{{/*
+--------------------------------------------------------------------------------
+PART 1: DATA PROCESSING
+- Fetch events from /data/events.json
+- Filter out events that have already ended.
+- Create a sortable key (YYYY-MM-DDTHH:MM) for each event.
+- Sort events chronologically.
+--------------------------------------------------------------------------------
+*/}}
+{{- $now := now.UTC -}}
+{{- $upcomingEvents := slice -}}
+{{- range site.Data.events.events -}}
+    {{- $eventEnd := "" -}}
+    {{- $trueEndDate := .endDate -}}
+    {{- if and .startDate .endDate ((time .startDate).After (time .endDate)) -}}
+        {{- $trueEndDate = .startDate -}}
+    {{- end -}}
+
+    {{- if $trueEndDate -}}
+        {{- $endTimeForFilter := "23:59:59" -}}
+        {{- if and .endTime (ne (lower .endTime) "tbd") (not .allDay) -}}
+            {{- $timeParts := split .endTime ":" -}}
+            {{- if eq (len $timeParts) 2 -}}
+                {{- $endTimeForFilter = printf "%s:00" .endTime -}}
+            {{- else -}}
+                {{- $endTimeForFilter = .endTime -}}
+            {{- end -}}
+        {{- end -}}
+        {{- with printf "%sT%s-07:00" $trueEndDate $endTimeForFilter -}}
+            {{- $eventEnd = time . -}}
+        {{- end -}}
+    {{- end -}}
+
+    {{- if or (not $eventEnd) ($eventEnd.After $now) -}}
+        {{- $upcomingEvents = $upcomingEvents | append . -}}
+    {{- end -}}
+{{- end -}}
+
+{{- $processedEvents := slice -}}
+{{- range $upcomingEvents -}}
+    {{- $startTimeForSort := "00:00:00" -}}
+    {{- if and .startTime (ne (lower .startTime) "tbd") (not .allDay) -}}
+        {{- $timeParts := split .startTime ":" -}}
+        {{- if eq (len $timeParts) 2 -}}
+            {{- $startTimeForSort = printf "%s:00" .startTime -}}
+        {{- else -}}
+            {{- $startTimeForSort = .startTime -}}
+        {{- end -}}
+    {{- end -}}
+    {{- $sortKey := printf "%sT%s" .startDate $startTimeForSort -}}
+    {{- $processedEvents = $processedEvents | append (dict "sortKey" $sortKey "data" .) -}}
+{{- end -}}
+{{- $sortedEvents := sort $processedEvents "sortKey" "asc" -}}
+
+
+{{/*
+--------------------------------------------------------------------------------
+PART 2: HELPER LOGIC & SVGs
+- Define SVGs for icons to be embedded in the HTML.
+- This avoids extra network requests for small icon files.
+--------------------------------------------------------------------------------
+*/}}
+{{- $emailSVG := `<svg enable-background='new 0 0 24 24' viewBox='0 0 24 24' style='height: 1em; width: 1em; vertical-align: -0.125em; fill: currentColor;'><path d='M18.821,20.5H5.179A3.683,3.683,0,0,1,1.5,16.821V7.179A3.683,3.683,0,0,1,5.179,3.5H18.821A3.683,3.683,0,0,1,22.5,7.179v9.642A3.683,3.683,0,0,1,18.821,20.5ZM5.179,4.5A2.682,2.682,0,0,0,2.5,7.179v9.642A2.682,2.682,0,0,0,5.179,19.5H18.821A2.682,2.682,0,0,0,21.5,16.821V7.179A2.682,2.682,0,0,0,18.821,4.5Z'></path><path d='M12,14.209a.5.5,0,0,1-.346-.138L4.286,7.028a.5.5,0,0,1,.691-.723L12,13.018l7.023-6.713a.5.5,0,1,1,.691.723l-7.368,7.043A.5.5,0,0,1,12,14.209Z'></path><path d='M4.7,17.833a.5.5,0,0,1-.347-.86l5.54-5.31a.5.5,0,0,1,.692.722L5.048,17.694A.5.5,0,0,1,4.7,17.833Z'></path><path d='M19.3,17.832a.5.5,0,0,1-.346-.139l-5.538-5.308a.5.5,0,0,1,.692-.722l5.538,5.308a.5.5,0,0,1-.346.861Z'></path></svg>` -}}
+{{- $websiteSVG := `<svg viewBox="0 0 24 24" style='height: 1em; width: 1em; vertical-align: -0.125em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;'><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>` -}}
+
+<div class="container">
+    
+    <!-- Calendar Navigation -->
+    <div class="calendar-nav mb-2 mt-n3 mb-lg-4 mt-lg-2">
+        <div class="action-buttons-container">
+
+            <!-- Filters -->
+            <div id="calendar-type-nav" class="btn-group" role="group" aria-label="Primary Navigation">
+                <button type="button" class="btn btn-primary" data-filter="all">All</button>
+                <button type="button" class="btn btn-outline-primary" data-filter="in-person">In-Person</button>
+                <button type="button" class="btn btn-outline-primary" data-filter="virtual">Virtual</button>
+                <button type="button" class="btn btn-outline-primary" data-filter="demonstrations">Demonstrations</button>
+            </div>
+
+            <!-- New Action Button Dropdowns -->
+            <div class="btn-action-group">
+                <!-- Stay Connected Dropdown -->
+                <div class="dropdown">
+                    <button class="btn btn-custom-action dropdown-toggle" type="button" id="stayConnectedDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Stay Connected
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="stayConnectedDropdown">
+                        <li><a class="dropdown-item" href="https://share-na2.hsforms.com/2LigUTqlzTH2GZ0Q_RO6z7Q4047m8" target="_blank" rel="noopener noreferrer">Email Newsletter</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><h6 class="dropdown-header">Subscribe to Calendar</h6></li>
+                        {{ $ical_url := "https://calendar.google.com/calendar/ical/f81dd042d9553c506027f96a0335662281bfcb7c772ee33f7f5629f6294779e3%40group.calendar.google.com/public/basic.ics" }}
+                        {{ $webcal_url := replace $ical_url "https" "webcal" 1 }}
+                        {{ $google_cal_url := printf "https://calendar.google.com/calendar/render?cid=%s" $ical_url }}
+                        <li><a class="dropdown-item" href="{{ $google_cal_url | safeURL }}" target="_blank" rel="noopener noreferrer">Google Calendar</a></li>
+                        <li><a class="dropdown-item" href="{{ $webcal_url | safeURL }}">Apple Calendar / Outlook</a></li>
+                        <li><a class="dropdown-item" href="{{ $ical_url | safeURL }}">Copy iCal Feed URL</a></li>
+                    </ul>
+                </div>
+
+                <!-- Get Involved Dropdown -->
+                <div class="dropdown">
+                    <button class="btn btn-custom-action dropdown-toggle" type="button" id="getInvolvedDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Get Involved
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="getInvolvedDropdown">
+                        <li><a class="dropdown-item" href="https://app.getzelos.com/i/YS5Xk0CL" target="_blank" rel="noopener noreferrer">Volunteer Form</a></li>
+                        <li><a class="dropdown-item" href="https://account.venmo.com/u/takeactiontucson" target="_blank" rel="noopener noreferrer">Donate</a></li>
+                        <!-- <li><hr class="dropdown-divider"></li> -->
+                        <!-- <li><a class="dropdown-item" href="#" target="_blank" rel="noopener noreferrer">Attend a TAT Meeting (Mobilize)</a></li> -->
+                    </ul>
+                </div>
+
+                <!-- Stay Informed Link Button -->
+                <a href="https://linktr.ee/takeactiontucson" target="_blank" rel="noopener noreferrer" class="btn btn-custom-action">
+                    Stay Informed
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    {{ if gt (len $sortedEvents) 0 }}
+    <!-- Views are only rendered if there are events -->
+
+    <!-- Desktop List View -->
+    <div class="desktop-calendar-view d-none d-lg-block" id="desktop-events">
+        <div class="events-list" id="desktop-events-list">
+            {{ range $index, $e := $sortedEvents }}
+                {{ $event := $e.data }}
+                {{ $start := time $event.startDate }}
+                {{ $altClass := "" }}
+                {{ if modBool $index 2 }}{{ $altClass = " event-list-item--alt" }}{{ end }}
+
+                {{ $timeDisplay := "Time TBD" }}
+                {{ if $event.allDay }}
+                    {{ $timeDisplay = "All Day" }}
+                {{ else if and $event.startTime (ne (lower $event.startTime) "tbd") }}
+                    {{ $startTimeString := $event.startTime }}
+                    {{ if eq (len (split $event.startTime ":")) 2 }}{{ $startTimeString = printf "%s:00" $event.startTime }}{{ end }}
+                    {{ $sTime := time (printf "2006-01-02T%s" $startTimeString) }}
+                    {{ $timeDisplay = $sTime.Format "3:04 PM" }}
+                    {{ if and $event.endTime (ne (lower $event.endTime) "tbd") }}
+                        {{ $endTimeString := $event.endTime }}
+                        {{ if eq (len (split $event.endTime ":")) 2 }}{{ $endTimeString = printf "%s:00" $event.endTime }}{{ end }}
+                        {{ $eTime := time (printf "2006-01-02T%s" $endTimeString) }}
+                        {{ $timeDisplay = printf "%s - %s" ($sTime.Format "3:04 PM") ($eTime.Format "3:04 PM") }}
+                    {{ end }}
+                {{ end }}
+
+                {{ $dataTypes := "" }}
+                {{ if $event.eventType }}
+                    {{ $eventTypes := slice }}
+                    {{ range $event.eventType }}
+                        {{ $eventTypes = $eventTypes | append (lower .) }}
+                    {{ end }}
+                    {{ $dataTypes = delimit $eventTypes " " }}
+                {{ end }}
+
+                {{- $trueEndDate := $event.endDate -}}
+                {{- if and $event.startDate $event.endDate ((time $event.startDate).After (time $event.endDate)) -}}
+                    {{- $trueEndDate = $event.startDate -}}
+                {{- end -}}
+
+                {{- $eventEndISO := "" -}}
+                {{- if $trueEndDate -}}
+                    {{- $endTimeForISO := "23:59:59" -}}
+                    {{- if and $event.endTime (ne (lower $event.endTime) "tbd") (not $event.allDay) -}}
+                        {{- $endTimeString := $event.endTime -}}
+                        {{- if eq (len (split $event.endTime ":")) 2 -}}{{- $endTimeString = printf "%s:00" $event.endTime -}}{{- end -}}
+                        {{- $endTimeForISO = $endTimeString -}}
+                    {{- end -}}
+                    {{- $eventEndISO = printf "%sT%s-07:00" $trueEndDate $endTimeForISO -}}
+                {{- end -}}
+
+                <div class="event-list-item{{ $altClass }}" data-event-types="{{ $dataTypes }}" data-end-datetime="{{ $eventEndISO }}">
+                    <div class="event-date-column">
+                        <div class="event-day-of-week">{{ $start.Format "Monday" }}</div>
+                        <div class="event-date-large">
+                            <span class="month">{{ upper ($start.Format "Jan") }}</span>
+                            <span class="day">{{ $start.Format "2" }}</span>
+                        </div>
+                        <div class="event-time">{{ $timeDisplay }}</div>
+                    </div>
+                    <div class="event-info">
+                        <h3 class="event-title">{{ $event.title }}</h3>
+                        <div class="event-content-wrapper">
+                                                        {{ with $event.location }}
+                                {{ if .name }}
+                                <div class="location-block">
+                                    <!-- COLUMN 1: Location Label, Name, and Address -->
+                                    <div class="location-and-address">
+                                        <strong class="location-label">Location:</strong>
+                                        <div class="location-name-and-address-lines">
+                                            <p class="location-name mb-0">{{ .name }}</p>
+                                            {{ if and .address (ne (lower .address) "virtual") }}
+                                                {{ $addressParts := split .address "," }}
+                                                <div class="address-line">{{ index $addressParts 0 }}</div>
+                                                <div class="address-line">{{ delimit (first 2 (after 1 $addressParts)) ", " }}</div>
+                                            {{ end }}
+                                        </div>
+                                    </div>
+
+                                    <!-- COLUMN 2: Map Links -->
+                                    {{ if and .address (ne (lower .address) "virtual") }}
+                                    <div class="map-links-container">
+                                        <span class="map-links-label">Map Links:</span>
+                                        <div class="map-links-list">
+                                            {{ $encodedAddress := urlize .address }}
+                                            <a href="https://www.openstreetmap.org/search?query={{ $encodedAddress }}" target="_blank" rel="noopener noreferrer">OSM</a>
+                                            <a href="https://www.google.com/maps/search/?api=1&query={{ $encodedAddress }}" target="_blank" rel="noopener noreferrer">Google</a>
+                                            <a href="http://maps.apple.com/?q={{ $encodedAddress }}" target="_blank" rel="noopener noreferrer">Apple</a>
+                                        </div>
+                                    </div>
+                                    {{ end }}
+                                </div>
+                                {{ end }}
+                            {{ end }}
+                            {{ with $event.organizer }}
+                                {{ if .name }}
+                                    {{ $organizerName := .name }}
+                                    <p class="mb-1"><strong>Organizer:</strong> 
+                                    {{ with .website }}
+                                        <a href="{{ . }}" target="_blank" rel="noopener noreferrer" title="Visit {{ $organizerName }}'s Website">{{ $organizerName }}</a>
+                                    {{ else }}
+                                        {{ $organizerName }}
+                                    {{ end }}
+                                    {{ with .email }}
+                                        <a href="mailto:{{ . }}" title="Email {{ $organizerName }}" class="text-decoration-none">{{ $emailSVG | safeHTML }}</a>
+                                    {{ end }}
+                                    </p>
+                                {{ end }}
+                            {{ end }}
+                            <div class="event-description-wrapper">
+                                <p class="event-description">{{ $event.description | safeHTML }}</p>
+                            </div>
+                        </div>
+                        <div class="expand-indicator"></div>
+                    </div>
+                    <div class="event-image-right">
+                        {{- $imgPath := trim $event.image "/" -}}
+                        {{- with resources.Get $imgPath -}}
+                            {{- $thumb := .Resize "400x webp" -}}
+                            {{- $large := .Resize "1200x webp" -}}
+                            <img src="{{ $thumb.RelPermalink }}" data-lightbox-src="{{ $large.RelPermalink }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" alt="{{ $event.title }}" class="event-photo" loading="lazy">
+                        {{- else -}}
+                            <img src="{{ $event.image }}" alt="{{ $event.title }}" class="event-photo" loading="lazy">
+                        {{- end -}}
+                    </div>
+                </div>
+            {{ end }}
+        </div>
+    </div>
+
+    <!-- Mobile Card View -->
+    <div class="mobile-calendar-view d-lg-none" id="mobile-events">
+        <div class="calendar-grid">
+            <div class="row" id="mobile-events-list">
+                {{ range $index, $e := $sortedEvents }}
+                    {{ $event := $e.data }}
+                    {{ $start := time $event.startDate }}
+                    {{ $altClass := "" }}
+                    {{ if modBool $index 2 }}{{ $altClass = " event-card--alt" }}{{ end }}
+
+                    {{ $timeDisplay := "Time TBD" }}
+                    {{ if $event.allDay }}
+                        {{ $timeDisplay = "All Day" }}
+                    {{ else if and $event.startTime (ne (lower $event.startTime) "tbd") }}
+                        {{ $startTimeString := $event.startTime }}
+                        {{ if eq (len (split $event.startTime ":")) 2 }}{{ $startTimeString = printf "%s:00" $event.startTime }}{{ end }}
+                        {{ $sTime := time (printf "2006-01-02T%s" $startTimeString) }}
+                        {{ $timeDisplay = $sTime.Format "3:04PM" }}
+                        {{ if and $event.endTime (ne (lower $event.endTime) "tbd") }}
+                            {{ $endTimeString := $event.endTime }}
+                            {{ if eq (len (split $event.endTime ":")) 2 }}{{ $endTimeString = printf "%s:00" $event.endTime }}{{ end }}
+                            {{ $eTime := time (printf "2006-01-02T%s" $endTimeString) }}
+                            {{ $timeDisplay = printf "%s-%s" ($sTime.Format "3:04PM") ($eTime.Format "3:04PM") }}
+                        {{ end }}
+                    {{ end }}
+
+                    {{ $dataTypes := "" }}
+                    {{ if $event.eventType }}
+                        {{ $eventTypes := slice }}
+                        {{ range $event.eventType }}
+                            {{ $eventTypes = $eventTypes | append (lower .) }}
+                        {{ end }}
+                        {{ $dataTypes = delimit $eventTypes " " }}
+                    {{ end }}
+
+                    {{- $trueEndDate := $event.endDate -}}
+                    {{- if and $event.startDate $event.endDate ((time $event.startDate).After (time $event.endDate)) -}}
+                        {{- $trueEndDate = $event.startDate -}}
+                    {{- end -}}
+
+                    {{- $eventEndISO := "" -}}
+                    {{- if $trueEndDate -}}
+                        {{- $endTimeForISO := "23:59:59" -}}
+                        {{- if and $event.endTime (ne (lower $event.endTime) "tbd") (not $event.allDay) -}}
+                            {{- $endTimeString := $event.endTime -}}
+                            {{- if eq (len (split $event.endTime ":")) 2 -}}{{- $endTimeString = printf "%s:00" $event.endTime -}}{{- end -}}
+                            {{- $endTimeForISO = $endTimeString -}}
+                        {{- end -}}
+                        {{- $eventEndISO = printf "%sT%s-07:00" $trueEndDate $endTimeForISO -}}
+                    {{- end -}}
+
+                    <div class="col-md-6 event-card-wrapper" data-event-types="{{ $dataTypes }}" data-end-datetime="{{ $eventEndISO }}">
+                        <div class="card event-card{{ $altClass }}">
+                            <div class="event-banner">
+                                <h3 class="event-banner-title">{{ $event.title }}</h3>
+                                <div class="event-banner-date">
+                                    <span class="event-banner-dayofweek">{{ $start.Format "Monday" }}</span>
+                                    <span class="event-banner-monthday">{{ upper ($start.Format "Jan") }} {{ $start.Format "2" }}</span>
+                                </div>
+                                <div class="event-banner-time">
+                                    <span class="event-banner-datetime">{{ $timeDisplay }}</span>
+                                </div>
+                            </div>
+                            <div class="event-image">
+                                {{- $imgPath := trim $event.image "/" -}}
+                                {{- with resources.Get $imgPath -}}
+                                    {{- $thumb := .Resize "600x webp" -}}
+                                    <img src="{{ $thumb.RelPermalink }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" alt="{{ $event.title }}" loading="lazy">
+                                {{- else -}}
+                                    <img src="{{ $event.image }}" alt="{{ $event.title }}" loading="lazy">
+                                {{- end -}}
+                            </div>
+                            <div class="card-body event-details">
+                                <div class="event-content-wrapper-mobile">
+                                {{ with $event.location }}
+                                    {{ if .name }}
+                                        <div class="location-block-mobile mb-1">
+                                            <div class="location-info-mobile">
+                                                <div class="location-and-address-mobile">
+                                                    <strong class="location-label">Location:</strong>
+                                                    <div class="location-name-and-address-lines-mobile">
+                                                        <div class="location-name mb-0">{{ .name }}</div>
+                                                        {{ if and .address (ne (lower .address) "virtual") }}
+                                                            {{ $addressParts := split .address "," }}
+                                                            <div class="address-line">{{ index $addressParts 0 }}</div>
+                                                            <div class="address-line">{{ delimit (first 2 (after 1 $addressParts)) ", " }}</div>
+                                                        {{ end }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{ if and .address (ne (lower .address) "virtual") }}
+                                                {{ $encodedAddress := urlize .address }}
+                                                <div class="map-links-container-mobile">
+                                                    <span class="map-links-label">Map Links:</span>
+                                                    <div class="map-links-mobile">
+                                                        <a href="https://www.openstreetmap.org/search?query={{ $encodedAddress }}" target="_blank" rel="noopener noreferrer">OSM</a>
+                                                        <a href="https://www.google.com/maps/search/?api=1&query={{ $encodedAddress }}" target="_blank" rel="noopener noreferrer">Google</a>
+                                                        <a href="http://maps.apple.com/?q={{ $encodedAddress }}" target="_blank" rel="noopener noreferrer">Apple</a>
+                                                    </div>
+                                                </div>
+                                            {{ end }}
+                                        </div>
+                                    {{ end }}
+                                {{ end }}
+
+                                {{ with $event.organizer }}
+                                    {{ if .name }}
+                                        {{ $organizerName := .name }}
+                                        <p class="mb-1"><strong>Organizer:</strong> 
+                                        {{ with .website }}
+                                            <a href="{{ . }}" target="_blank" rel="noopener noreferrer" title="Visit {{ $organizerName }}'s Website">{{ $organizerName }}</a>
+                                        {{ else }}
+                                            {{ $organizerName }}
+                                        {{ end }}
+                                        {{ with .email }}
+                                            <a href="mailto:{{ . }}" title="Email {{ $organizerName }}" class="text-decoration-none">{{ $emailSVG | safeHTML }}</a>
+                                        {{ end }}
+                                        </p>
+                                    {{ end }}
+                                {{ end }}
+
+                                <div class="event-description-wrapper-mobile">
+                                    <p class="event-description">{{ $event.description | safeHTML }}</p>
+                                </div>
+                                </div>
+                                <div class="expand-indicator-mobile"></div>
+                            </div>
+                        </div>
+                    </div>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+    {{ else }}
+    <div class="row">
+        <div class="col">
+            <p>There are currently no upcoming events. Please check back later!</p>
+        </div>
+    </div>
+    {{ end }}
+</div>
+
+<div id="lightbox" class="lightbox">
+    <img class="lightbox-content" id="lightbox-img">
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+    {{ $script := resources.Get "js/main.js" | resources.Fingerprint }}
+    <script src="{{ $script.RelPermalink | relURL }}"></script>
+{{ end }}

@@ -1,0 +1,82 @@
+{{ define "title" }}{{ .Title }} &ndash; {{ .Site.Title }}{{ end }}
+
+{{ define "main" }}
+<div class="row">
+    <div class="col-md-12">
+        <h1>{{ .Title }}</h1>
+        <div class="content mb-4">
+            {{ .Content }}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="contact-form">
+            <form id="contactForm" method="POST" action="#">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="reason" class="form-label">Reason for Contact</label>
+                    <select class="form-control" id="reason" name="reason">
+                        <option>General Question</option>
+                        <option>Submit an Event</option>
+                        <option>Submit a Protest Photo</option>
+                        <option>Volunteer</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card" style="border-color: #4d614d;">
+            <div class="card-body">
+                <h3>Connect With Us</h3>
+                <p><strong>Email:</strong> info@takeactiontucson.org</p>
+                <p><strong>Social Media:</strong></p>
+                <ul>
+                    <li>Bluesky: @takeactiontucson.org</li>
+                    <li>Facebook: Take Action Tucson</li>
+                    <li>Instagram: @TakeActionTucson</li>
+                </ul>
+                
+                <h4 class="mt-4">Submit an Event</h4>
+                <p>Have an activism event in Tucson? Email us the details at calendar@takeactiontucson.org with:</p>
+                <ul>
+                    <li>Event name</li>
+                    <li>Date and time</li>
+                    <li>Location</li>
+                    <li>Organizer</li>
+                    <li>Brief description</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // In a real application, you would handle form submission to a backend server here
+    alert('Thank you for your message! This is a demo form, so no message was actually sent.');
+    
+    // Clear form
+    this.reset();
+});
+</script>
+{{ end }}

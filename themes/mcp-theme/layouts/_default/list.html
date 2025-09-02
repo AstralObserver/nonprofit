@@ -1,0 +1,19 @@
+{{ define "title" }}{{ .Title }} &ndash; {{ .Site.Title }}{{ end }}
+
+{{ define "main" }}
+<div class="row">
+    <div class="col-md-12">
+        <h1>{{ .Title }}</h1>
+        {{ .Content }}
+        {{ range .Pages }}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h5>
+                <p class="card-text">{{ .Summary }}</p>
+                <a href="{{ .Permalink }}" class="btn btn-primary">Read more</a>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</div>
+{{ end }}
