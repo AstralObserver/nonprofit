@@ -1,6 +1,6 @@
-# Take Action Tucson Website
+# Collective Improvement Association Website
 
-A Hugo-based website for Take Action Tucson, providing a central hub for local activism events and resources.
+A Hugo-based website for the Collective Improvement Association, providing a central hub for local activism events and resources.
 
 ## Features
 
@@ -9,7 +9,7 @@ A Hugo-based website for Take Action Tucson, providing a central hub for local a
 - Printable event calendar for distribution
 - Protest sign gallery
 - Contact form
-- Custom color scheme matching Take Action Tucson branding
+- Custom color scheme matching Collective Improvement Association branding
 
 ## Quick Start
 

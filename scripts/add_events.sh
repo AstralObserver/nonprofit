@@ -25,5 +25,5 @@ if [ ! -f "credentials.json" ]; then
 fi
 
 # Run the script
-echo "Adding events to Take Action Tucson calendar..."
+echo "Adding events to CIA calendar..."
 python3 add_events_to_calendar.py "$@"

@@ -16,7 +16,7 @@ import requests
 class EventEditor:
     def __init__(self, root):
         self.root = root
-        self.root.title("Take Action Tucson - Event Editor")
+        self.root.title("CIA - Event Editor")
         self.root.geometry("1150x900")
 
         # Define file paths
@@ -83,7 +83,7 @@ class EventEditor:
 
         output_data = {
             "calendar": {
-                "name": "Take Action Tucson Events",
+                "name": "Collective Improvement Association Events",
                 "lastUpdated": self.get_current_iso_time(),
             },
             "events": self.events,

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script to update calendar events from Google Calendar
 
-echo "Updating Take Action Tucson calendar events..."
+echo "Updating Collective Improvement Association calendar events..."
 
 # Check if we're in the right directory
 if [ ! -f "scripts/import-calendar.py" ]; then
